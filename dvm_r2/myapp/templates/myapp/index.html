@@ -31,6 +31,7 @@
                     <td class="py-2 px-4 border-b   text-slate-800 text-center">{{ train.from_station_code }}</td>
                     <td class="py-2 px-4 border-b   text-slate-800 text-center">{{ train.to_station_code }}</td>
                     <td class="py-2 px-4 border-b   text-slate-800 text-center">{{ train.runs_on }}</td>
+                    {% comment %} <td class="py-2 px-4 border-b   text-slate-800 text-center">{% if train.train_available == True %} Yes {% else%} No {% endif%}</td> {% endcomment %}
                 </tr>
             {% endfor %}
         </tbody>
@@ -39,12 +40,12 @@
         {% if trains.has_previous %}
             <a href="?page={{ trains.previous_page_number }}" class="text-white w-20 text-center p-2 rounded-md mr-4 bg-[#D84E55]">prev</a>
         {% else%}
-        <a href="#" class="text-gray-300 w-20 text-center p-2 mr-4 rounded-md bg-slate-700" > X </a>
+        <h1 class="hover:cursor-not-allowed text-gray-300 w-20 text-center p-2 mr-4 rounded-md bg-slate-700" > X </h1>
         {% endif %}
                 {% if trains.has_next %}
                     <a href="?page={{ trains.next_page_number }}" class="text-white w-20 text-center p-2 rounded-md bg-[#D84E55]">next</a>
                 {% else%}
-                <a href="#" class="text-gray-300 w-20 text-center p-2 rounded-md bg-slate-700" > X </a>
+                <h1 class="hover:cursor-not-allowed text-gray-300 w-20 text-center p-2 rounded-md bg-slate-700" > X </h1>
                 {% endif %}
     </div>
     <div class="flex justify-center">

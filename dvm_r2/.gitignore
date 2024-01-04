@@ -1,2 +1,4 @@
 ./db.sqlite3
 ./dvm_r2/.env
+.env
+db.sqlite3
