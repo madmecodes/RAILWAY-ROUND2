@@ -1,6 +1,10 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
-
-# Create your views here.
+from .models import Train
 
 def home(request):
-    return render(request, 'myapp/index.html')
+    trains_list = Train.objects.all()
+    paginator = Paginator(trains_list, 4)  # Show 7 trains per page
+    page = request.GET.get('page')
+    trains = paginator.get_page(page)
+    return render(request, 'myapp/index.html', {'trains': trains})

@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
       'tailwind',
-      'myapp',
+      'myapp.apps.MyappConfig',
         'theme',
         'django_browser_reload',
     'django.contrib.admin',
