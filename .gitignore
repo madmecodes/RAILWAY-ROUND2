@@ -1,0 +1,32 @@
+# RAILWAY-ROUND2/.gitignore
+
+# Virtual Environment
+venv/
+
+# Database
+db.sqlite3
+
+# Media and Static Files
+myapp/media/
+myapp/static/
+
+# Logs
+*.log
+
+# IDE-specific Files
+.vscode/
+.idea/
+
+# Compiled Python Files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Django Specific Files
+*.pyc
+*.pyo
+*.pyd
+
+# Environment-specific Files
+.env/
