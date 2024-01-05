@@ -994,6 +994,10 @@ select {
   padding: 1.5rem;
 }
 
+.p-3 {
+  padding: 0.75rem;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1014,12 +1018,29 @@ select {
   padding-bottom: 0.5rem;
 }
 
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .pl-11 {
   padding-left: 2.75rem;
 }
 
 .pr-10 {
   padding-right: 2.5rem;
+}
+
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
+.pt-5 {
+  padding-top: 1.25rem;
 }
 
 .text-center {
@@ -1048,6 +1069,11 @@ select {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .font-bold {
@@ -1109,6 +1135,11 @@ select {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-\[\#26151A\] {
+  --tw-text-opacity: 1;
+  color: rgb(38 21 26 / var(--tw-text-opacity));
 }
 
 .opacity-50 {
