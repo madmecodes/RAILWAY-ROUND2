@@ -2,6 +2,7 @@
 
 # Virtual Environment
 venv/
+my_venv2/
 
 # Database
 db.sqlite3
