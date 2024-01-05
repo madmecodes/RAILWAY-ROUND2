@@ -19,4 +19,14 @@ class Train(models.Model):
     def __str__(self):
         return f"{self.train_number} - {self.train_name}"
 
+class Station(models.Model):
+    train = models.ForeignKey(Train,on_delete=models.CASCADE)
+    train_number = models.CharField(max_length=10,default='')  
+    station_code = models.CharField(max_length=100)
+    station_name= models.CharField(max_length=100)
+    distance = models.IntegerField()
+    arrival_time = models.TimeField()
+    halt_time = models.CharField(max_length=10)
 
+    def __str__(self):
+        return f"{self.train.train_number} - {self.station_code} - {self.station_name}"

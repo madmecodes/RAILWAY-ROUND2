@@ -1,0 +1,14 @@
+{% load static %}
+
+<div class=" h-screen w-full relative" style="background-image: url('{% static 'myapp/images/bgtrain.jpg' %}'); background-size: cover; background-position: center; height: 320px;">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="absolute inset-0 flex flex-col items-center justify-center">
+        <h1 class="text-white text-4xl font-bold text-center mb-6">Look for a train</h1>
+        <form action={% url 'train_details' train_number='PLACEHOLDER' %}>
+        <div class="flex items-center justify-center w-full">
+            <input type="text" name="train_number" placeholder="Enter Train Number" class="w-96 h-16 px-4 rounded-l-lg border-t border-b border-l text-gray-800 border-gray-200 bg-white">
+            <button type="submit" class="h-16 px-6 rounded-r-lg bg-[#D84E55] text-white hover:bg-red-700">Search</button>
+        </div>
+    </form>
+    </div>
+</div>

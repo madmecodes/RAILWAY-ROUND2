@@ -1,57 +1,50 @@
 {% extends "myapp/base.html" %}
-{% load static %}
 {% block content %}
-<div class=" h-screen w-full relative" style="background-image: url('{% static 'myapp/images/bgtrain.jpg' %}'); background-size: cover; background-position: center; height: 320px;">
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    <div class="absolute inset-0 flex flex-col items-center justify-center">
-        <h1 class="text-white text-4xl font-bold text-center mb-6">Look for a train</h1>
-        <div class="flex items-center justify-center w-full">
-            <input type="text" placeholder="Enter Train Number" class="w-1/2 h-16 px-4 rounded-l-lg border-t border-b border-l text-gray-800 border-gray-200 bg-white">
-            <button class="h-16 px-6 rounded-r-lg bg-[#D84E55] text-white hover:bg-red-700">Search</button>
-        </div>
-    </div>
-</div>
+
+{% include 'myapp/_search_form.html' %}
+
 <!-- Display the train data -->
-<div class="container mx-auto px-20 py-10 text-xl">
-    <table class="min-w-full bg-[#e1787d] border border-gray-300">
-        <thead>
-            <tr>
-                <th class="py-2 text-slate-900 font-bold px-4 border-b">Train Number</th>
-                <th class="py-2 text-slate-900 font-bold px-4 border-b">Train Name</th>
-                <th class="py-2 text-slate-900 font-bold px-4 border-b">From Station</th>
-                <th class="py-2 text-slate-900 font-bold px-4 border-b">To Station</th>
-                <th class="py-2 text-slate-900 font-bold px-4 border-b">Runs On</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for train in trains %}
-                <tr class="h-20">
-                    <td class="py-2 px-4 border-b  text-slate-800  text-center">{{ train.train_number }}</td>
-                    <td class="py-2 px-4 border-b  text-slate-800  text-center">{{ train.train_name }}</td>
-                    <td class="py-2 px-4 border-b   text-slate-800 text-center">{{ train.from_station_code }}</td>
-                    <td class="py-2 px-4 border-b   text-slate-800 text-center">{{ train.to_station_code }}</td>
-                    <td class="py-2 px-4 border-b   text-slate-800 text-center">{{ train.runs_on }}</td>
-                    {% comment %} <td class="py-2 px-4 border-b   text-slate-800 text-center">{% if train.train_available == True %} Yes {% else%} No {% endif%}</td> {% endcomment %}
+<div class="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-10 text-xl">
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-[#e1787d] border border-gray-300">
+            <thead>
+                <tr>
+                    <th class="py-2 text-slate-900 font-bold px-4 border-b sm:w-1/5 md:w-1/5 lg:w-1/5">Train Number</th>
+                    <th class="py-2 text-slate-900 font-bold px-4 border-b sm:w-1/5 md:w-1/5 lg:w-1/5">Train Name</th>
+                    <th class="py-2 text-slate-900 font-bold px-4 border-b sm:w-1/5 md:w-1/5 lg:w-1/5">From Station</th>
+                    <th class="py-2 text-slate-900 font-bold px-4 border-b sm:w-1/5 md:w-1/5 lg:w-1/5">To Station</th>
+                    <th class="py-2 text-slate-900 font-bold px-4 border-b sm:w-1/5 md:w-1/5 lg:w-1/5">Runs On</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for train in trains %}
+                    <tr class="sm:h-10 md:h-10 lg:h-20">
+                        <td class="py-2 px-4 border-b  text-slate-800  text-center">{{ train.train_number }}</td>
+                        <td class="py-2 px-4 border-b  text-slate-800  text-center">{{ train.train_name }}</td>
+                        <td class="py-2 px-4 border-b   text-slate-800 text-center">{{ train.from_station_code }}</td>
+                        <td class="py-2 px-4 border-b   text-slate-800 text-center">{{ train.to_station_code }}</td>
+                        <td class="py-2 px-4 border-b   text-slate-800 text-center">{{ train.runs_on }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <div class="mt-2 flex justify-center p-2 w-full">
         {% if trains.has_previous %}
             <a href="?page={{ trains.previous_page_number }}" class="text-white w-20 text-center p-2 rounded-md mr-4 bg-[#D84E55]">prev</a>
-        {% else%}
-        <h1 class="hover:cursor-not-allowed text-gray-300 w-20 text-center p-2 mr-4 rounded-md bg-slate-700" > X </h1>
+        {% else %}
+            <h1 class="hover:cursor-not-allowed text-gray-300 w-20 text-center p-2 mr-4 rounded-md bg-slate-700" > X </h1>
         {% endif %}
-                {% if trains.has_next %}
-                    <a href="?page={{ trains.next_page_number }}" class="text-white w-20 text-center p-2 rounded-md bg-[#D84E55]">next</a>
-                {% else%}
-                <h1 class="hover:cursor-not-allowed text-gray-300 w-20 text-center p-2 rounded-md bg-slate-700" > X </h1>
-                {% endif %}
+        {% if trains.has_next %}
+            <a href="?page={{ trains.next_page_number }}" class="text-white w-20 text-center p-2 rounded-md bg-[#D84E55]">next</a>
+        {% else %}
+            <h1 class="hover:cursor-not-allowed text-gray-300 w-20 text-center p-2 rounded-md bg-slate-700" > X </h1>
+        {% endif %}
     </div>
     <div class="flex justify-center">
-    <span class=" text-gray-600 text-md ">{{ trains.paginator.count }} trains : </span>
-    <span class=" text-gray-600 text-md ">Page {{ trains.number }} of {{ trains.paginator.num_pages }}.</span>
+        <span class="text-gray-600 text-md">{{ trains.paginator.count }} trains : </span>
+        <span class="text-gray-600 text-md">Page {{ trains.number }} of {{ trains.paginator.num_pages }}.</span>
     </div>
 </div>
-</div>
+
 {% endblock %}
