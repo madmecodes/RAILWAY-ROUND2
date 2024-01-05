@@ -7,3 +7,24 @@
 
 
 ## please give some more time, my apology i started late, i was studying something else.
+
+# dummy train data
+
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/9ae3c456-5f57-4909-b83e-356f71d4d3b6)
+created by signals.py
+
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/14ed53ea-bea3-4ee6-869d-9e6d3ede1635)
+
+# dummy station data::
+
+### populatinf from excel to psql via python script; in build django file:: myapp/management/commands/populate_myapp_station.py 
+python manage.py populate_myapp_station (django automatically created it)
+
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/3f26c01a-b359-421f-b1dc-5e6dd134019f)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/5c0feaa4-537c-4319-885e-e9475fe1f462)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/aff43a63-26e7-47c1-8dc7-5f69569a177a)
+
+admin can add too stations and select train via one to many relationship many station one train
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/1f68c193-90a3-4d2a-a5fe-836e1a767a66)
+
+## Now i just have to implement From-to destination 
