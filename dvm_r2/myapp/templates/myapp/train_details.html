@@ -26,7 +26,7 @@
             </thead>
             <tbody>
                 {% for station in stations %}
-                    <tr class="sm:h-10 md:h-10 lg:h-20">
+                    <tr class="sm:h-10 md:h-10 lg:h-14">
                         <td class="py-2 px-4 border-b  text-slate-800  text-center">{{ station.station_code }}</td>
                         <td class="py-2 px-4 border-b  text-slate-800  text-center">{{ station.station_name }}</td>
                         <td class="py-2 px-4 border-b   text-slate-800 text-center">{{ station.distance }}</td>
@@ -37,7 +37,26 @@
             </tbody>
         </table>
     </div>
+    {% comment %} http://127.0.0.1:8000/train/?train_number=1009&page=1 {% endcomment %}
+    <div class="mt-5 flex justify-center px-2 pb-2 w-full">
+        {% if stations.has_previous %}
+            <a href="?train_number={{ train.train_number }}&page={{ stations.previous_page_number }}" class="text-white w-20 text-center p-2 rounded-md mr-4 bg-[#D84E55]">prev</a>
+        {% else %}
+            <span class="text-gray-300 w-20  hover:cursor-not-allowed text-center p-2 mr-4 rounded-md bg-slate-700"> X </span>
+        {% endif %}
+        {% if stations.has_next %}
+            <a href="?train_number={{ train.train_number }}&page={{ stations.next_page_number }}" class="text-white w-20 text-center p-2 rounded-md bg-[#D84E55]">next</a>
+        {% else %}
+            <span class="text-gray-300 w-20 hover:cursor-not-allowed text-center p-2 rounded-md bg-slate-700"> X </span>
+        {% endif %}
+    </div>
+<div class="flex justify-center">
+    <span class="text-gray-600 text-md">{{ stations.paginator.count }} stations : </span>
+    <span class="text-gray-600 text-md">Page {{ stations.number }} of {{ stations.paginator.num_pages }}.</span>
 </div>
+</div>
+
+
 
 
 {% endblock %}
