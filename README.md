@@ -27,4 +27,9 @@ python manage.py populate_myapp_station (django automatically created it)
 admin can add too stations and select train via one to many relationship many station one train
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/1f68c193-90a3-4d2a-a5fe-836e1a767a66)
 
+# search for train from train number and it will display list of multiple stations
+
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/8954a9a3-6b9d-44a9-884c-8bc24cc9c1f4)
+
+
 ## Now i just have to implement From-to destination 
