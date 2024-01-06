@@ -1,0 +1,77 @@
+{% extends "myapp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+<div class=" h-screen w-full relative" style="background-image: url('{% static 'myapp/images/bgtrain.jpg' %}'); background-size: cover; background-position: center; height: 320px;">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="absolute inset-0 flex flex-col items-center justify-center">
+        <h1 class="text-white text-4xl font-bold text-center mb-6">Train Ticket Booking</h1>
+        <form method="POST" action={% url 'choose_train_list' %}>
+            {% csrf_token %}
+            <input list="choices" name="source_station" placeholder="Source Station">
+            <input list="choices" name="destination_station" placeholder="Destination Station">
+            <datalist id="choices">
+            {% for station_code in station_codes %}
+                <option value="{{ station_code }}">
+            {% endfor %}
+            </datalist>
+            <div class="flex items-center justify-center w-full mt-6">
+                <button type="submit" class="h-12 px-6 rounded-full  bg-[#D84E55] text-white hover:bg-red-700">Search</button>
+            </div>
+        </form>
+        
+    </div>
+</div>
+<div class="flex justify-center flex-col items-center">
+    <h1 class="text-3xl text-center font-semibold mt-3 text-[#26171B]">Relevant Trains</h1>
+
+    {% if relevant_trains %}
+        <div class="flex flex-col m-3">
+            {% for train in relevant_trains %}
+                <div class="bg-[#D84E55] w-[600px] text-center py-4 text-lg text-[#26171B] rounded-lg shadow-md px-12 m-4">
+                    <h2 class="text-xl text-center font-semibold mb-2">{{ train.train__train_name }} ({{ train.train__train_number }})</h2>
+                    
+                    <!-- Arriva/Destination Time and Total Seats/Fare in Same Row -->
+                    <div class="flex justify-between ">
+                        <p>Arrival Time: {{ train.arrival_time|time:"H:i"  }}</p>
+                        <p>Destination Time: {{ train.destination_arrival_time|time:"H:i"  }}</p>
+                    </div>
+
+                    <div class="flex justify-between ">
+                        <p>Total Seats (1AC): {{ train.train__total_seats_1ac }}</p>
+                        <p>Fare (1AC): ₹{{ train.train__fare_1ac }}</p>
+                    </div>
+
+                    <div class="flex justify-between ">
+                        <p>Total Seats (2AC): {{ train.train__total_seats_2ac }}</p>
+                        <p>Fare (2AC): ₹{{ train.train__fare_2ac }}</p>
+                    </div>
+
+                    <div class="flex justify-between ">
+                        <p>Total Seats (3AC): {{ train.train__total_seats_3ac }}</p>
+                        <p>Fare (3AC): ₹{{ train.train__fare_3ac }}</p>
+
+                    </div>
+                    <div class="flex justify-between">
+                        <p>From: {{ source_station }} {{relevant_trains.station_name}}</p>
+                        <p>To: {{ destination_station }}</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <p>Runs On: {{ train.train__runs_on }}</p>
+                        <p>Distance: {{ train.distance }} km</p>
+                    </div>
+             
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No relevant trains found.</p>
+    {% endif %}
+</div>
+
+
+
+  {% endblock%}

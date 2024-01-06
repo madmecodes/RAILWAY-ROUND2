@@ -37,6 +37,7 @@
             </tbody>
         </table>
     </div>
+    {% if stations.paginator.count > 7 %}
     {% comment %} http://127.0.0.1:8000/train/?train_number=1009&page=1 {% endcomment %}
     <div class="mt-5 flex justify-center px-2 pb-2 w-full">
         {% if stations.has_previous %}
@@ -54,6 +55,7 @@
     <span class="text-gray-600 text-md">{{ stations.paginator.count }} stations : </span>
     <span class="text-gray-600 text-md">Page {{ stations.number }} of {{ stations.paginator.num_pages }}.</span>
 </div>
+{% endif %}
 </div>
 
 
