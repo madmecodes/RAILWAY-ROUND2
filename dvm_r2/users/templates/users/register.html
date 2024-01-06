@@ -1,0 +1,38 @@
+{% extends "myapp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="h-screen w-full relative" style="background-image: url('{% static 'myapp/images/bgtrain.jpg' %}'); background-size: cover; background-position: center;">
+    <div class="absolute inset-0 -z-1 bg-black opacity-50"></div>
+    <div class="my-20  w-1/2 z-10 relative bg-[#b13f45c4] text-white mx-auto rounded-xl p-5">
+        <h1 class="mb-6 text-3xl"> Register </h1>
+        <form method="post" action=".">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="text-slate-200 inline-block"> Username </label> <br> {{form.username}}
+            </div>
+            <div class="mb-3">
+                <label class="text-slate-200 inline-block"> Email </label> <br> {{form.email}}
+            </div>
+            <div class="mb-3">
+                <label class="text-slate-200 inline-block"> Password </label> <br> {{form.password1}}
+            </div>
+            <div class="mb-3">
+                <label class="text-slate-200 inline-block"> Repeat Password </label> <br> {{form.password2}}
+            </div>
+            {% if form.non_field_errors or form.errors %}
+            <div class="mb-3 bg-red-400 p-3 rounded-xl">
+                {% for field in form %}
+                    {{field.errors}}
+                {% endfor %}
+                {{form.non_field_errors}}
+            </div>
+            {% endif %}
+            <div class="flex items-center justify-center">
+                <button class="py-4 px-8 text-lg mt-5 bg-red-500 hover:bg-red-900 text-white rounded-xl"> Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
