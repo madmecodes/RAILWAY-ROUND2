@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Train, Station
-from django.db.models import F, Case, When, Value, Min, CharField
+from django.db.models import F, Case, When, Value, Min, CharField, Q
 
 def home(request):
     trains_list = Train.objects.filter(train_available=True)
@@ -57,6 +57,36 @@ def get_relevant_train_number_and_time(source_station, destination_station):
     )
     return relevant_trains
 
+def find_trains(source_code, destination_code):
+    # Assuming you have a model called Station with fields train_number, arrival_time, and station_code
+    # and a model called Train with fields train_number and train_name
+
+    # Filter stations for the source and destination codes
+    source_stations = Station.objects.filter(station_code=source_code)
+    destination_stations = Station.objects.filter(station_code=destination_code)
+
+    # Get trains for the source and destination stations
+    source_trains = Train.objects.filter(station__in=source_stations)
+    destination_trains = Train.objects.filter(station__in=destination_stations)
+
+    # Get common trains between source and destination
+    common_trains = source_trains.filter(train_number__in=destination_trains.values('train_number'))
+
+    # Annotate source and destination times
+    common_trains = common_trains.annotate(
+        source_time=F('station__arrival_time'),
+        destination_time=F('station__arrival_time')
+    )
+
+    # Filter trains based on source_time and destination_time
+    common_trains = common_trains.filter(Q(source_time__lt=F('destination_time')))
+
+    # Distinct trains based on train_number, train_name, source_time, destination_time
+    common_trains = common_trains.distinct().values(
+        'train_number', 'train_name', 'source_time', 'destination_time'
+    )
+
+    return common_trains
 
 def choose_train_list(request):
     if(request.method == 'POST'):

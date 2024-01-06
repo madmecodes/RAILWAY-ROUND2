@@ -1,0 +1,38 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="h-screen w-full relative" style="background-image: url('{% static 'myapp/images/bgtrain.jpg' %}'); background-size: cover; background-position: center;">
+    <div class="absolute inset-0 -z-1 bg-black opacity-50"></div>
+<div class="my-20  w-1/2 z-10 relative bg-[#b13f45c4]  mx-auto rounded-xl p-5">
+    <div class="flex flex-col justify-center items-center">
+    <h1 class=" text-white text-3xl font-bold"> Hello! {{user.username}} </h1> <br>
+    <h1 class="mb-6 text-white text-2xl"> You currently have ₹ {{user.profile.wallet_balance}} in your wallet </h1>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="text-slate-200 inline-block"> Username </label> <br> {{ u_form.username }}
+        </div>
+      
+        <div class="mb-3">
+            <label class="text-slate-200 inline-block"> Password </label> <br> {{ u_form.email }}
+        </div>
+        <div class="mb-3">
+            <label class="text-slate-200 inline-block"> Wallet Balance </label> <br> {{ p_form.wallet_balance }}
+        </div>
+        {% if form.non_field_errors or form.errors %}
+        <div class="mb-3 bg-red-400 p-3 rounded-xl">
+            {% for field in form %}
+                {{field.errors}}
+            {% endfor %}
+            {{form.non_field_errors}}
+        </div>
+        {% endif %}
+        <div class="flex items-center justify-center">
+            <button class="py-4 px-8 text-lg mt-5 bg-red-500 hover:bg-red-900 text-white rounded-xl"> Update</button>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock content %}

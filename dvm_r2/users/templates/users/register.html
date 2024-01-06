@@ -5,8 +5,8 @@
 {% block content %}
 <div class="h-screen w-full relative" style="background-image: url('{% static 'myapp/images/bgtrain.jpg' %}'); background-size: cover; background-position: center;">
     <div class="absolute inset-0 -z-1 bg-black opacity-50"></div>
-    <div class="my-20  w-1/2 z-10 relative bg-[#b13f45c4] text-white mx-auto rounded-xl p-5">
-        <h1 class="mb-6 text-3xl"> Register </h1>
+    <div class="my-20  w-1/2 z-10 relative bg-[#b13f45c4]  mx-auto rounded-xl p-5">
+        <h1 class="mb-6 text-white text-3xl"> Register </h1>
         <form method="post" action=".">
             {% csrf_token %}
             <div class="mb-3">
