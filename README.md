@@ -33,4 +33,10 @@ admin can add stations and then select trainnumber via one to many relationship;
 
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/77a5faa3-6208-4f4a-84b7-6a199ef04275)
 
+## User registeration and login
+
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/b3549459-974a-4eb5-9470-7ed30dd67904)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/73924ff4-ffc1-4d3b-a20d-27643b5e3783)
+
+
 ## now need to implement booking models
