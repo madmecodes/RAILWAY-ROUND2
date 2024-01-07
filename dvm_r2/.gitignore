@@ -7,3 +7,9 @@ __pycache__
 ./dvm_r2/__pycache__
 my_venv2/
 ../my_venv2/
+# .gitignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+

@@ -1,5 +1,4 @@
 {% extends "myapp/base.html" %}
-
 {% load static %}
 
 {% block content %}
@@ -11,11 +10,12 @@
         <h1 class="text-white text-4xl font-bold text-center mb-6">Train Ticket Booking</h1>
         <form method="POST" action={% url 'choose_train_list' %}>
             {% csrf_token %}
-            <input list="choices" name="source_station" placeholder="Source Station">
+            <input list="choices" id="source_station" name="source_station" placeholder="Source Station">
             <input list="choices" name="destination_station" placeholder="Destination Station">
             <datalist id="choices">
             {% for station_code in station_codes %}
                 <option value="{{ station_code }}">
+                   
             {% endfor %}
             </datalist>
             <div class="flex items-center justify-center w-full mt-6">
@@ -25,48 +25,50 @@
         
     </div>
 </div>
-<div class="flex justify-center flex-col items-center">
+<div class="flex justify-center flex-col  items-center">
     <h1 class="text-3xl text-center font-semibold mt-3 text-[#26171B]">Relevant Trains</h1>
 
     {% if relevant_trains %}
         <div class="flex flex-col m-3">
             {% for train in relevant_trains %}
-                <div class="bg-[#D84E55] w-[600px] text-center py-4 text-lg text-[#26171B] rounded-lg shadow-md px-12 m-4">
+                <div class="bg-[#D84E55] w-[500px] shadow-lg md:w-[700px] text-center py-4 text-lg text-[#26171B] rounded-lg  px-12 m-4">
                     <h2 class="text-xl text-center font-semibold mb-2">{{ train.train__train_name }} ({{ train.train__train_number }})</h2>
-                    
-                    <!-- Arriva/Destination Time and Total Seats/Fare in Same Row -->
-                    <div class="flex justify-between ">
-                        <p>Arrival Time: {{ train.arrival_time|time:"H:i"  }}</p>
-                        <p>Destination Time: {{ train.destination_arrival_time|time:"H:i"  }}</p>
+                    <p class=" text-center mb-2" >Runs On: {{ train.train__runs_on }}</p>
+                    <div class="flex justify-between w-[400px] md:w-[500px] mx-auto my-auto items-center">
+                        <p class="font-bold text-md"> {{ source_station }}</p>
+                        <p class="opacity-40 text-sm"> ----------------------
+                            {{overall_relative_distance}}
+                            km----------------------> </p>
+                        <p class="font-bold text-md">{{ destination_station }}</p>
                     </div>
-
-                    <div class="flex justify-between ">
-                        <p>Total Seats (1AC): {{ train.train__total_seats_1ac }}</p>
-                        <p>Fare (1AC): ₹{{ train.train__fare_1ac }}</p>
+                    <div class="flex justify-between w-[400px] md:w-[500px] mx-auto my-auto items-center">
+                        <p class="text-red-950">{{ train.arrival_time|time:"H:i"  }}</p>
+                        <p class="text-red-950">{{ train.destination_arrival_time|time:"H:i"  }}</p>
                     </div>
-
-                    <div class="flex justify-between ">
-                        <p>Total Seats (2AC): {{ train.train__total_seats_2ac }}</p>
-                        <p>Fare (2AC): ₹{{ train.train__fare_2ac }}</p>
+                    {% comment %} TICKET CARDS {% endcomment %}
+                <div class="flex justify-evenly mt-3 ">
+                    <div class="w-1/2 bg-slate-200 rounded-lg mx-2 shadow-md">
+                        <p class="font-bold pt-1"> 1AC </p> 
+                        <p>{{ train.train__total_seats_1ac }} Availale</p>
+                        <p class="text-green-600"> ₹{{train.relative_fare_1ac }}</p>
                     </div>
-
-                    <div class="flex justify-between ">
-                        <p>Total Seats (3AC): {{ train.train__total_seats_3ac }}</p>
-                        <p>Fare (3AC): ₹{{ train.train__fare_3ac }}</p>
-
+                    <div class="w-1/2 bg-slate-200 rounded-lg mx-2 shadow-md">
+                        <p class="font-bold pt-1"> 2AC </p> 
+                        <p>{{ train.train__total_seats_2ac }} Availale</p>
+                        <p class="text-green-600"> ₹{{train.relative_fare_2ac }}</p>
                     </div>
-                    <div class="flex justify-between">
-                        <p>From: {{ source_station }} {{relevant_trains.station_name}}</p>
-                        <p>To: {{ destination_station }}</p>
+                    <div class="w-1/2 bg-slate-200 rounded-lg mx-2 shadow-md">
+                        <p class="font-bold pt-1"> 3AC </p> 
+                        <p>{{ train.train__total_seats_3ac }} Availale</p>
+                        <p class="text-green-600"> ₹{{train.relative_fare_3ac }}</p>
                     </div>
-                    <div class="flex justify-between">
-                        <p>Runs On: {{ train.train__runs_on }}</p>
-                        <p>Distance: {{ train.distance }} km</p>
-                    </div>
-             
                 </div>
+                {% comment %} TICKET CARDS END {% endcomment %}
+            </div>
             {% endfor %}
+            </div>
         </div>
+    </div>
     {% else %}
         <p>No relevant trains found.</p>
     {% endif %}

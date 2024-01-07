@@ -44,4 +44,4 @@ class ProfileAddMoneyForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['wallet_balance'].widget.attrs.update({'class': FORM_CLASS})
+        self.fields['wallet_balance'].widget.attrs.update({'class': FORM_CLASS,'min':0})

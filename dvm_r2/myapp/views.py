@@ -2,6 +2,8 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Train, Station
 from django.db.models import F, Case, When, Value, Min, CharField, Q
+from django.db import models
+
 
 def home(request):
     trains_list = Train.objects.filter(train_available=True)
@@ -41,59 +43,75 @@ def get_relevant_train_number_and_time(source_station, destination_station):
     relevant_trains = (
         Station.objects
         .filter(station_code=source_station)
-        .values('train__train_number','train__train_name' , 'train__total_seats_1ac','train__total_seats_2ac', 'train__total_seats_3ac', 'train__runs_on', 'train__fare_1ac','train__fare_2ac','train__fare_3ac','distance' ,'arrival_time','station_name')
         .annotate(
             destination_arrival_time=Min(
-                Case(
-                    When(train__station__station_code=destination_station, then=F('train__station__arrival_time')),
-                    default=Value('23:59:59'),  # Set a default time to ensure it is greater than any valid time
-                    output_field=CharField()  # You may need to adjust the output field type based on your model
-                )
+                'train__station__arrival_time', 
+                filter=Q(train__station__station_code=destination_station)
+            ),
+            source_distance=F('distance'),
+            destination_distance=Min(
+                'train__station__distance',
+                filter=Q(train__station__station_code=destination_station)
             )
         )
         .filter(destination_arrival_time__gt=F('arrival_time'))
-        .values('train__train_number', 'arrival_time', 'destination_arrival_time','train__train_name' , 'train__total_seats_1ac','train__total_seats_2ac', 'train__total_seats_3ac', 'train__runs_on', 'train__fare_1ac','train__fare_2ac','train__fare_3ac','distance','station_name')
+        .values(
+            'train__train_number', 
+            'arrival_time', 
+            'destination_arrival_time',
+            'train__train_name',
+            'train__total_seats_1ac',
+            'train__total_seats_2ac',
+            'train__total_seats_3ac',
+            'train__runs_on',
+            'train__fare_1ac',
+            'train__fare_2ac',
+            'train__fare_3ac',
+            'source_distance',
+            'destination_distance',
+            'station_name'
+        )
         .distinct()
     )
+
     return relevant_trains
 
-def find_trains(source_code, destination_code):
-    # Assuming you have a model called Station with fields train_number, arrival_time, and station_code
-    # and a model called Train with fields train_number and train_name
 
-    # Filter stations for the source and destination codes
-    source_stations = Station.objects.filter(station_code=source_code)
-    destination_stations = Station.objects.filter(station_code=destination_code)
-
-    # Get trains for the source and destination stations
-    source_trains = Train.objects.filter(station__in=source_stations)
-    destination_trains = Train.objects.filter(station__in=destination_stations)
-
-    # Get common trains between source and destination
-    common_trains = source_trains.filter(train_number__in=destination_trains.values('train_number'))
-
-    # Annotate source and destination times
-    common_trains = common_trains.annotate(
-        source_time=F('station__arrival_time'),
-        destination_time=F('station__arrival_time')
+def calculate_overall_relative_distance(relevant_trains):
+    overall_relative_distance = (
+        relevant_trains.aggregate(
+            overall_relative_distance=Min(F('source_distance') - F('destination_distance')) 
+            #doubt why Min; if not error if random value else not 
+        )['overall_relative_distance'] or 0
     )
+    overall_relative_distance = abs(overall_relative_distance)
+    return overall_relative_distance
 
-    # Filter trains based on source_time and destination_time
-    common_trains = common_trains.filter(Q(source_time__lt=F('destination_time')))
+def calculate_relative_fare(fare, overall_relative_distance):
+    relative_fare = round(fare * overall_relative_distance/10)
 
-    # Distinct trains based on train_number, train_name, source_time, destination_time
-    common_trains = common_trains.distinct().values(
-        'train_number', 'train_name', 'source_time', 'destination_time'
-    )
-
-    return common_trains
+    return relative_fare
 
 def choose_train_list(request):
-    if(request.method == 'POST'):
+    if request.method == 'POST':
         source_station = request.POST.get('source_station', '')
-        destination_station = request.POST.get('destination_station','')
-        relevant_trains = get_relevant_train_number_and_time(source_station,destination_station)
-        station_codes = Station.objects.values_list('station_code', flat=True).distinct()
-        context= {'relevant_trains':relevant_trains, 'stations_codes':station_codes,'source_station':source_station,'destination_station':destination_station}
+        destination_station = request.POST.get('destination_station', '')
+        relevant_trains = get_relevant_train_number_and_time(source_station, destination_station)
 
-    return render(request,'myapp/choose_train_list.html',context)
+        overall_relative_distance = calculate_overall_relative_distance(relevant_trains)
+
+        for train in relevant_trains:
+            train['relative_fare_1ac'] = calculate_relative_fare(train.get('train__fare_1ac', 0), overall_relative_distance)
+            train['relative_fare_2ac'] = calculate_relative_fare(train.get('train__fare_2ac', 0), overall_relative_distance)
+            train['relative_fare_3ac'] = calculate_relative_fare(train.get('train__fare_3ac', 0), overall_relative_distance)
+
+        station_codes = Station.objects.values_list('station_code', flat=True).distinct()
+        context = {
+            'relevant_trains': relevant_trains,
+            'station_codes': station_codes,
+            'source_station': source_station,
+            'destination_station': destination_station,
+            'overall_relative_distance': overall_relative_distance,
+        }
+
+        return render(request, 'myapp/choose_train_list.html', context)
