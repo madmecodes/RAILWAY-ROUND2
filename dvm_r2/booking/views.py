@@ -26,26 +26,31 @@ def booking_form(request):
     return redirect('myapp-home')
 
 
-@login_required
 def booking_submit(request):
     if request.method == 'POST':
         try:
-            passenger_data = request.POST.get('backend_passenger_data')
-            passengers = json.loads(passenger_data)
-            if passengers:
-                for passenger in passengers:
-                    Passenger.objects.create(
-                        user = request.user,
-                        train_number=passenger['train_number'],
-                        ticket_type=passenger['ticket_type'],
-                        fare=passenger['ticket_fare'],
-                        passenger_first_name=passenger['name'],
-                        passenger_age=passenger['age'],
-                    )
-                return JsonResponse({'success': True})
+            passenger_data = json.loads(request.body)
+            print('Raw request body:', passenger_data)
+            if passenger_data is not None:
+                if passenger_data:
+                    passengers = passenger_data.get('passengers', [])
+                    for passenger in passengers:
+                        Passenger.objects.create(
+                            user=request.user,
+                            train_number=passenger['train_number'],
+                            ticket_type=passenger['ticket_type'],
+                            fare=passenger['ticket_fare'],
+                            passenger_first_name=passenger['name'],
+                            passenger_age=passenger['age'],
+                        )
+                    return JsonResponse({'success': True})
+                else:
+                    return JsonResponse({'success': False, 'message': 'No passengers provided.'})
             else:
-                return JsonResponse({'success': False, 'message': 'No passengers provided.'})
+                return JsonResponse({'success': False, 'message': 'Invalid JSON data.'})
 
         except Exception as e:
-            return JsonResponse({'success':False,'message':str(e)})
+            return JsonResponse({'success': False, 'message': str(e)})
+
     return JsonResponse({'success': False, 'message': 'Invalid request method.'})
+

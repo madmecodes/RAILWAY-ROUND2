@@ -1,62 +1,21 @@
 {% extends "myapp/base.html" %}
 {% block content %}
-
-<div class="mt-8">
-    <h1 class="text-2xl text-center font-semibold mb-4">Booking Form</h1>
-
-    <div class="flex items-center bg-slate-500 justify-center flex-col">
-        <div class="flex flex-col">
-            <p><strong>Train Number:</strong> {{ train_number }}</p>
-            <div class="flex">
-                <p>{{ ticket_type }}</p>
-                <p><strong>- {{ total_seats }} Available:</strong> </p>
-            </div>
-            <p class="text-center"><strong>Fare:</strong> Rs.{{ fare }}/person </p>
-            <p class="text-center"><strong>Your Wallent Balance:</strong> Rs.{{user.profile.wallet_balance}}</p>
-            
-
-        </div>
-
-        <form method="post" id="passengerForm">
-            {% csrf_token %}
-         
-            <label for="id_first_name">First Name:</label>
-            <input type="text" name="first_name" id="id_first_name">
-        
-            <label for="id_age">Age:</label>
-            <input min='0', max='100', type="number" name="age" id="id_age">
-        
-            <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded" onclick="addPassenger()">Add Passenger</button>
-        </form>
-        <form method='post'>
-            {% csrf_token %}
-            <input type="hidden" name="backend_passenger_data" id="backend_passenger_data">
-            <button type="button" onclick="checkAndSubmit()">Submit</button>
-        </form>
-        </div>
-        <div id="passengerList">
-        </div>
-        <div >
-            <p id="passenger_tickets_count">
-            </p>
-        </div>
-    </div>
-
 <script>
     let passengers = []
     let passenger_count =0
     let ticket_fare = {{fare}}
-    let train_number = {{train_number}}
-    let ticket_type = {{ticket_type}}
-    let wallet_balance = {{user.profile.wallet_balance}}
-    function updateHiddenInput(){
+    let train_number = "{{train_number}}"
+    let ticket_type = "{{ticket_type}}"
+    let wallet_balance = {{user.profile.wallet_balance}};
 
+    function updateHiddenInput(){
         document.getElementById('backend_passenger_data').value = JSON.stringify(passengers)
-    }
+    };
     function addPassenger(){
-        let passenger_first_name = document.getElementById('id_first_name').value;
+        console.log("Function executed");
+        let passenger_first_name = document.getElementById('id_first_name').value
         let passenger_age = document.getElementById('id_age').value
-        if(passenger_first_name.trim()!== '' && passenger_age.trim()!==''){
+        if(passenger_first_name.trim() !== '' && passenger_age.trim() !==''){
             let passenger= {
                 name:passenger_first_name,
                 age:passenger_age,
@@ -76,7 +35,7 @@
         }
     }
     function checkAndSubmit(){
-        let total_fare = passenger_count * fare
+        let total_fare = passenger_count * ticket_fare
         if(total_fare<=wallet_balance){
             fetch('/booking/submit/',{
                 method : 'POST',
@@ -108,5 +67,46 @@
         
     }
 </script>
+<div class="mt-8">
+    <h1 class="text-2xl text-center font-semibold mb-4">Booking Form</h1>
+
+    <div class="flex items-center bg-slate-500 justify-center flex-col">
+        <div class="flex flex-col">
+            <p><strong>Train Number:</strong> {{ train_number }}</p>
+            <div class="flex">
+                <p>{{ ticket_type }}</p>
+                <p><strong>- {{ total_seats }} Available:</strong> </p>
+            </div>
+            <p class="text-center"><strong>Fare:</strong> Rs.{{ fare }}/person </p>
+            <p class="text-center"><strong>Your Wallent Balance:</strong> Rs.{{user.profile.wallet_balance}}</p>
+            
+
+        </div>
+
+        <form method="post" id="passengerForm">
+            {% csrf_token %}
+         
+            <label for="id_first_name">First Name:</label>
+            <input type="text" name="first_name" id="id_first_name">
+        
+            <label for="id_age">Age:</label>
+            <input min='0' max='100' type="number" name="age" id="id_age">
+        
+            <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded" onclick="addPassenger()">Add Passenger</button>
+        </form>
+        <form method='post'>
+            {% csrf_token %}
+            <input type="hidden" name="backend_passenger_data" id="backend_passenger_data">
+            <button type="button" onclick="checkAndSubmit()">Submit</button>
+        </form>
+        </div>
+        <div id="passengerList">
+        </div>
+        <div >
+            <p id="passenger_tickets_count">
+            </p>
+        </div>
+    </div>
+
 
 {% endblock %}
