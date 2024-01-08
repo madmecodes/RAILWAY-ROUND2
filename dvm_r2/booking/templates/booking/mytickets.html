@@ -1,0 +1,37 @@
+{% extends "myapp/base.html" %}
+{% block content %}
+    <h1 class="text-2xl text-center font-semibold mb-4">My Tickets</h1>
+    
+    {% if bookings %}
+        <table class="table-auto text-center " >
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">Passenger Name</th>
+                    <th class="px-4 py-2">Train Number</th>
+                    <th class="px-4 py-2">Ticket Type</th>
+                    <th class="px-4 py-2">Fare</th>
+                    <th class="px-4 py-2">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                    <tr>
+                        <td class="border px-4 py-2">{{ booking.passenger_first_name }}</td>
+                        <td class="border px-4 py-2">{{ booking.train_number }}</td>
+                        <td class="border px-4 py-2">{{ booking.ticket_type }}</td>
+                        <td class="border px-4 py-2">Rs.{{ booking.fare }}</td>
+                        <td class="border px-4 py-2">
+                        {% if booking.cancel_status %}
+                            Rejected
+                        {% else %}
+                            Active
+                        {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No bookings available.</p>
+    {% endif %}
+{% endblock %}

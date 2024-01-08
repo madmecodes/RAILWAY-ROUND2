@@ -945,6 +945,10 @@ select {
   flex-grow: 1;
 }
 
+.table-auto {
+  table-layout: auto;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -1099,6 +1103,11 @@ select {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-blue-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
 
 .p-2 {
