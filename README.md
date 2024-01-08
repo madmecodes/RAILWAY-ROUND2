@@ -71,7 +71,7 @@ As of 8 jan  [4jan to 8jan ] ; Deadline approached :( will add more in future, f
 
 ==
 <br>
-Todos: (out of time :{ ) *cry*
+Todos: (out of time :{ )
 1. now we can  mail this by retreiving data from Passenger model and mail to request.user
 2. can edit data say name in myticket by introducing edit button and  edit button will make a post request function in a view
 3. can add more complexity that is search trains by date can introduce calender feature in frontend which will then check corresponding day for date and further filter down relevant trains in frontend
@@ -83,4 +83,4 @@ if admin wants to cancel a ticket he check the checkbox
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/4836aebe-fe5c-4dab-94e9-f6c2e8ceb241)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/04c3f7aa-bbc2-4b58-84ae-4fe0b74dc0da)
 
-## Yeah waant to add more but i should also respect the deadline so now i will dockerise it and deploy. (i feel i have something to show probably 70/100). #trains
+## Yeah want to add more but i should also respect the deadline so now i will dockerise it and deploy. (i feel i have something to show probably 70/100). #trains
