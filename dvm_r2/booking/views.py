@@ -71,6 +71,7 @@ def booking_submit(request):
                                 ).update(total_seats_3ac=F("total_seats_3ac") - total_tickets)
                             user_profile.wallet_balance -= total_fare
                             user_profile.save()
+                            
                     return JsonResponse({"success": True})
                 else:
                     return JsonResponse(

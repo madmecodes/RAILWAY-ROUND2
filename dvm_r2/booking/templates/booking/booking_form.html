@@ -39,7 +39,14 @@
             alert("add atleast one passenger")
             return
         }
-        if(total_fare<=wallet_balance){
+        if(total_fare>wallet_balance){
+            alert('You ran out of budjet, add money in your wallet from profile');
+            return
+        }
+        const confirmation = window.confirm(
+        `Total fare: Rs.${total_fare}\nDo you want to proceed with the booking?`
+        );
+        if(confirmation){
             fetch('/booking/submit/',{
                 method : 'POST',
                 headers: {
@@ -51,13 +58,8 @@
             .then(response=>response.json())
             .then(data=>{
                 if(data.success){
-                    alert('passenger data submitted successfully; check mytickets to view your booking')
-                    document.getElementById('passengerList').innerHTML= ''
-                    passengers = []
-                    updateHiddenInput()
-                    passenger_count=0
-                    document.getElementById('passenger_tickets_count').textContent = ''
-                    location.reload();
+                    alert("Passenger data submitted successfully");
+                    window.location.href = '/booking/mytickets/';
                 }
                 else{
                     alert('Submission failed: ' + data.message);
@@ -67,14 +69,8 @@
                 console.error('Error',error)
             })
         }
-        else if(total_fare>wallet_balance){
-            alert('You ran out of budjet, add money in your wallet from profile');
-        }
-        else if(passenger_count==0){
-            alert("invalid input")
-        }
         else{
-            alert("some error")
+            alert("Booking cancelled")
         }
         
     }
