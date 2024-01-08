@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "tailwind",
     "myapp.apps.MyappConfig",
+    "booking.apps.BookingConfig",
     "theme",
     "users.apps.UsersConfig",
     "django_browser_reload",

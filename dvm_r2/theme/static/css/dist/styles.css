@@ -829,6 +829,10 @@ select {
   margin-bottom: 0.75rem;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .mb-5 {
   margin-bottom: 1.25rem;
 }
@@ -861,6 +865,10 @@ select {
   margin-top: 1.5rem;
 }
 
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .block {
   display: block;
 }
@@ -875,6 +883,10 @@ select {
 
 .table {
   display: table;
+}
+
+.hidden {
+  display: none;
 }
 
 .h-12 {
@@ -913,20 +925,16 @@ select {
   width: 24rem;
 }
 
+.w-\[400px\] {
+  width: 400px;
+}
+
 .w-\[500px\] {
   width: 500px;
 }
 
-.w-\[700px\] {
-  width: 700px;
-}
-
 .w-full {
   width: 100%;
-}
-
-.w-\[400px\] {
-  width: 400px;
 }
 
 .min-w-full {
@@ -971,6 +979,10 @@ select {
 
 .overflow-x-auto {
   overflow-x: auto;
+}
+
+.rounded {
+  border-radius: 0.25rem;
 }
 
 .rounded-full {
@@ -1049,6 +1061,11 @@ select {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
+.bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+}
+
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -1067,6 +1084,11 @@ select {
 .bg-slate-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+}
+
+.bg-slate-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
 
 .bg-slate-700 {
@@ -1348,11 +1370,6 @@ select {
   .sm\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
-  }
-
-  .sm\:text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
   }
 }
 
