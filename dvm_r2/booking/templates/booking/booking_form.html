@@ -23,7 +23,7 @@
                 ticket_type:ticket_type,
             };
             passengers.push(passenger);
-            passenger_count++
+            passenger_count++;
             let passengerDiv = document.createElement('div');
             passengerDiv.textContent = `passenger ${passenger_count}:: Name: ${passenger_first_name} Age: ${passenger_age}`
             document.getElementById('passengerList').appendChild(passengerDiv)
@@ -40,7 +40,7 @@
             return
         }
         if(total_fare>wallet_balance){
-            alert('You ran out of budjet, add money in your wallet from profile');
+            alert('You ran out of budget, add money in your wallet from profile');
             return
         }
         const confirmation = window.confirm(
@@ -74,6 +74,11 @@
         }
         
     }
+    function clearList(){
+        passengers = []
+        document.getElementById('passengerList').innerHTML = ''
+        document.getElementById('passenger_tickets_count').innerHTML = ''
+    }
 </script>
 <div class="mt-8 ">
     <h1 class="text-2xl text-center font-semibold mb-4">Booking Form</h1>
@@ -101,11 +106,13 @@
             <input min='0' max='100' type="number" name="age" id="id_age">
         
             <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded" onclick="addPassenger()">Add Passenger</button>
+            <button type="button" class="bg-red-500 text-white py-2 px-4 rounded" onclick="clearList()">Clear List</button>
+
         </form>
         <form method='post'>
             {% csrf_token %}
             <input type="hidden" name="backend_passenger_data" id="backend_passenger_data">
-            <button type="button" onclick="checkAndSubmit()">Submit</button>
+            <button type="button" class="bg-green-500 text-white py-2 px-4 rounded" onclick="checkAndSubmit()">Submit</button>
         </form>
         </div>
         <div id="passengerList">
