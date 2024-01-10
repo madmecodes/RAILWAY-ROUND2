@@ -75,12 +75,12 @@ Todos: (out of time :{ )
 1. now we can  mail this by retreiving data from Passenger model and mail to request.user
 2. can edit data say name in myticket by introducing edit button and  edit button will make a post request function in a view
 3. can add more complexity that is search trains by date can introduce calender feature in frontend which will then check corresponding day for date and further filter down relevant trains in frontend
-4. talking about cancellation and refund, admin can change cancel_status from dashboard and in frontend we can update it
-![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/c19685b5-43c3-4887-b598-26e52f2a777a)
-in def self im taking instance as passenger-name-createdby
-![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/81df86dc-ea7b-4139-85d5-843da78cc4b0)
-if admin wants to cancel a ticket he check the checkbox
-![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/4836aebe-fe5c-4dab-94e9-f6c2e8ceb241)
+4. talking about cancellation and refund, admin can change cancel_status from dashboard and in frontend we can update it <br>
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/c19685b5-43c3-4887-b598-26e52f2a777a) <br>
+in def self im taking instance as passenger-name-createdby<br>
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/81df86dc-ea7b-4139-85d5-843da78cc4b0) <br>
+if admin wants to cancel a ticket he check the checkbox <br>
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/4836aebe-fe5c-4dab-94e9-f6c2e8ceb241) <br>
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/04c3f7aa-bbc2-4b58-84ae-4fe0b74dc0da)
 
 ## added edit functionality for passenger information
