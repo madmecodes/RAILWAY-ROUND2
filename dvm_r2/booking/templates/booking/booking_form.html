@@ -82,9 +82,10 @@
         passenger_count=0
     }
 </script>
-
-    <div class="flex items-center mx-20  bg-[#a72e34] mt-10 rounded-xl p-5 mb-20 justify-center flex-col relative ">
-       <div class="flex flex-col bg-[#714547b2] text-white items-center rounded-lg p-4 m-4 absolute left-0 top-0">
+<div class="bg-slate-200 flex flex-col bg-cover bg-center min-h-screen w-full relative" style="background-image: url('{% static 'myapp/images/bgtrain.jpg' %}');">
+    <div class="bg-black opacity-35 absolute inset-0"> </div>
+    <div class="flex items-center mx-20 shadow-2xl  bg-[#e63f48be] mt-10 rounded-xl p-5 mb-20 justify-center flex-col relative ">
+       <div class="flex flex-col shadow-md bg-[#a35256d1] text-white items-center rounded-lg p-4 m-4 absolute left-0 top-0">
             <p class="my-5"><strong>Train Number:</strong> {{ train_number }}</p>
             <div class="flex">
                 <p class="my-5">{{ ticket_type }}</p>
@@ -97,28 +98,29 @@
         </div> 
         <h1 class="text-2xl text-white text-center font-semibold mt-2 mb-4 ">Booking Form</h1>
 
-        <form method="post" id="passengerForm" class="text-center p-4 rounded-lg">
+        <form method="post" id="passengerForm" class="text-center p-4 w-full rounded-lg">
             {% csrf_token %}
          
-            <input type="text" name="first_name" placeholder="Passenger Name"  id="id_first_name">
-            <input min='0' max='100' type="number" placeholder="age" name="age" id="id_age">
+            <input class="rounded-lg w-2/6 " type="text" name="first_name" placeholder="Passenger Name"  id="id_first_name">
+            <input class="rounded-lg" min='0' max='100' type="number" placeholder="age" name="age" id="id_age">
             <br> <br>
-            <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded" onclick="addPassenger()">Add Passenger</button>
-            <button type="button" class="bg-red-500 text-white py-2 px-4 rounded" onclick="clearList()">Clear List</button>
+            <button type="button" class="bg-red-800 hover:bg-red-600 text-white py-2 px-4 rounded" onclick="addPassenger()">Add Passenger</button>
+            <button type="button" class="bg-red-800 hover:bg-red-600 text-white py-2 px-4 rounded" onclick="clearList()">Clear List</button>
 
         </form>
-        <div  id="passengerList" class="text-lg  text-slate-950 font-semibold bg-[#e85b64b4] p-4 m-2 w-[500px] rounded-xl h-[300px]">
+        <div  id="passengerList" class="text-lg  text-white font-semibold relative border bg-[#a35256d1] p-4 m-2 w-[500px] rounded-xl h-[300px] overscroll-y-auto overflow-x-hidden">
           <p class="opacity-55 font-normal">  Passenger Information </p>
         </div>
-        <div id="passenger_tickets_count" class="text-lg font-bold" >
+        <div id="passenger_tickets_count" class="text-lg font-bold text-white" >
             Total Tickets : 0
         </div>
         <form method='post' class="mt-5">
             {% csrf_token %}
             <input type="hidden" name="backend_passenger_data" id="backend_passenger_data">
-            <button type="button" class="bg-green-500 text-white py-2 px-4 rounded" onclick="checkAndSubmit()">Submit</button>
+            <button type="button" class="bg-[#292617] hover:bg-green-700  text-white py-2 px-4 rounded" onclick="checkAndSubmit()">Submit</button>
         </form>
         </div>
      
     </div>
+</div>
 {% endblock %}
