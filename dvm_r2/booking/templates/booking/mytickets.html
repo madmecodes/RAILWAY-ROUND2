@@ -1,54 +1,9 @@
-{% extends "myapp/base.html" %}
-{% block content %}
-    <h1 class="text-2xl text-center font-semibold mb-4">My Tickets</h1>
-    
-    {% if bookings %}
-        <table class="table-auto text-center">
-            <thead>
-                <tr>
-                    <th class="px-4 py-2">Passenger info</th>
-                    <th class="px-4 py-2">Passenger Age</th>
-                    <th class="px-4 py-2">Edit</th>
-                    <th class="px-4 py-2">Train Number</th>
-                    <th class="px-4 py-2">Ticket Type</th>
-                    <th class="px-4 py-2">Fare</th>
-                    <th class="px-4 py-2">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for booking in bookings %}
-                    <tr>
-                        <td class="border px-4 py-2">
-                            <span id="passenger_name_{{ booking.id }}">{{ booking.passenger_first_name }}</span>
-                            <input type="text" id="edit_passenger_name_{{ booking.id }}" style="display: none;" value="{{ booking.passenger_first_name }}">
-                        </td>
-                        <td class="border px-4 py-2">
-                            <span id="passenger_age_{{ booking.id }}">{{ booking.passenger_age }}</span>
-                            <input type="number" min="0" max="100" id="edit_passenger_age_{{ booking.id }}" style="display: none;" value="{{ booking.passenger_age }}">
-                        </td>
-                        <td class="border px-4 py-2">
-                            <button onclick="editPassenger({{ booking.id }})">Edit</button>
-                            <button onclick="saveChanges({{ booking.id }})" style="display: none;">Save</button>
-                            <button onclick="cancelChanges({{ booking.id }})" style="display: none;">Cancel</button>
-                        </td>
-                        <td class="border px-4 py-2">{{ booking.train_number }}</td>
-                        <td class="border px-4 py-2">{{ booking.ticket_type }}</td>
-                        <td class="border px-4 py-2">Rs.{{ booking.fare }}</td>
-                        <td class="border px-4 py-2">
-                            {% if booking.cancel_status %}
-                                Rejected
-                            {% else %}
-                                Active
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p class="text-center">No bookings available.</p>
-    {% endif %}
+{% load static tailwind_tags %}
 
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
     <script>
         function editPassenger(bookingId) {
             document.getElementById(`passenger_name_${bookingId}`).style.display = 'none';
@@ -120,4 +75,108 @@
         }
     </script>
 
-{% endblock %}
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Train</title>
+    {% tailwind_css %}
+</head>
+<body class="bg-slate-200 flex flex-col bg-cover bg-center min-h-screen w-full relative" style="background-image: url('{% static 'myapp/images/bgtrain.jpg' %}');">
+    <div class="absolute inset-0 bg-black opacity-50">
+    </div>
+    <nav class="bg-[#D84E55] p-6 relative">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-xl text-white font-semibold">MyTrain</a>
+
+            <div class="flex items-center space-x-4 mr-10">
+                <a href="/" class="text-white hover:text-gray-300">Home</a>
+                <a href="{% url 'choose_train' %}" class="text-white hover:text-gray-300">Book Ticket</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="text-white hover:text-gray-300">Profile</a>
+                    <a href="{% url 'my_tickets' %}" class="text-white hover:text-gray-300">MyTickets</a>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="text-white hover:text-gray-300">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="text-white hover:text-gray-300">Login</a>
+                    <a href="{% url 'register'%}" class="text-white hover:text-gray-300">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <h1 class="text-2xl text-center font-semibold mt-2 text-white relative mb-4">My Tickets</h1>
+
+        {% if bookings %}
+        <div class="table-container flex relative flex-col items-center mb-12">
+            <table class="table-auto text-center">
+                <thead>
+                    <tr class="bg-slate-300">
+                        <th class="px-4 py-2">Passenger info</th>
+                        <th class="px-4 py-2">Passenger Age</th>
+                        <th class="px-4 py-2">Edit</th>
+                        <th class="px-4 py-2">Train Number</th>
+                        <th class="px-4 py-2">Ticket Type</th>
+                        <th class="px-4 py-2">Fare</th>
+                        <th class="px-4 py-2">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr class="m-2">
+                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[300px] h-[110px]">
+                            <span id="passenger_name_{{ booking.id }}">{{ booking.passenger_first_name }}</span>
+                            <input class="w-52 text-black" type="text" id="edit_passenger_name_{{ booking.id }}" style="display: none;" value="{{ booking.passenger_first_name }}">
+                        </td>
+                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[200px] h-[110px] ">
+                            <span id="passenger_age_{{ booking.id }}">{{ booking.passenger_age }}</span>
+                            <input class=" text-black" type="number" min="0" max="100" id="edit_passenger_age_{{ booking.id }}" style="display: none;" value="{{ booking.passenger_age }}">
+                        </td>
+                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[220px] h-[110px] ">
+                            <button class="text-white bg-slate-600 hover:opacity-100 opacity-85 m-1 p-3 rounded-lg " onclick="editPassenger({{ booking.id }})">Edit</button>
+                            <button class="text-white bg-slate-600 hover:opacity-100 opacity-85 m-1 p-3 rounded-lg " onclick="saveChanges({{ booking.id }})" style="display: none;">Save</button>
+                            <button class="text-white bg-slate-600 hover:opacity-100 opacity-85 m-1 p-3 rounded-lg " onclick="cancelChanges({{ booking.id }})" style="display: none;">Cancel</button>
+                        </td>
+                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">{{ booking.train_number }}</td>
+                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">{{ booking.ticket_type }}</td>
+                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">Rs.{{ booking.fare }}</td>
+                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">
+                            {% if booking.cancel_status %}
+                                Rejected
+                            {% else %}
+                                Active
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="text-center">No bookings available.</p>
+        {% endif %}
+
+
+    <div class="flex-grow container mx-auto"> </div>
+
+    <footer class="bg-[#111827] p-6 relative">
+        <div class="container mx-auto flex justify-between">
+            <div class="w-2/3 pr-10">
+                <h3 class="mb-5 font-semibold text-gray-400">Footer</h3>
+                <p class="text-md md:text-lg text-gray-500">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+            </div>
+            <div class="w-1/6 pl-11 ">
+                <h3 class="mb-5 font-semibold text-gray-400">Menu</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-md md:text-lg text-teal-500 hover:text-teal-700">About</a></li>
+                    <li><a href="#" class="text-md md:text-lg text-teal-500 hover:text-teal-700">Contact</a></li>
+                    <li><a href="#" class="text-md md:text-lg text-teal-500 hover:text-teal-700">Privacy policy</a></li>
+                    <li><a href="#" class="text-md md:text-lg text-teal-500 hover:text-teal-700">Term of use</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,5 +1,6 @@
 {% extends "myapp/base.html" %}
 {% block content %}
+{% load static %}
 <script>
     let passengers = []
     let passenger_count =0
@@ -25,7 +26,7 @@
             passengers.push(passenger);
             passenger_count++;
             let passengerDiv = document.createElement('div');
-            passengerDiv.textContent = `passenger ${passenger_count}:: Name: ${passenger_first_name} Age: ${passenger_age}`
+            passengerDiv.textContent = `Passenger ${passenger_count} | ${passenger_first_name} | Age: ${passenger_age}`
             document.getElementById('passengerList').appendChild(passengerDiv)
             document.getElementById('passenger_tickets_count').textContent = `Total Tickets ${passenger_count}`
             document.getElementById('id_first_name').value = ''
@@ -76,53 +77,48 @@
     }
     function clearList(){
         passengers = []
-        document.getElementById('passengerList').innerHTML = ''
-        document.getElementById('passenger_tickets_count').innerHTML = ''
+        document.getElementById('passengerList').innerHTML = '<p class="text-black opacity-50 font-normal">Passenger Information</p>'
+        document.getElementById('passenger_tickets_count').innerHTML = '<p class="text-black opacity-50 font-serif">Total Tickets: 0</p>'
         passenger_count=0
     }
 </script>
-<div class="mt-8 ">
-    <h1 class="text-2xl text-center font-semibold mb-4">Booking Form</h1>
 
-    <div class="flex items-center bg-slate-500 justify-center flex-col">
-        <div class="flex flex-col">
-            <p><strong>Train Number:</strong> {{ train_number }}</p>
+    <div class="flex items-center mx-20  bg-[#a72e34] mt-10 rounded-xl p-5 mb-20 justify-center flex-col relative ">
+       <div class="flex flex-col bg-[#714547b2] text-white items-center rounded-lg p-4 m-4 absolute left-0 top-0">
+            <p class="my-5"><strong>Train Number:</strong> {{ train_number }}</p>
             <div class="flex">
-                <p>{{ ticket_type }}</p>
-                <p><strong>- {{ total_seats }} Available:</strong> </p>
+                <p class="my-5">{{ ticket_type }}</p>
+                <p class="my-5"><strong>- {{ total_seats }} Available:</strong> </p>
             </div>
-            <p class="text-center"><strong>Fare:</strong> Rs.{{ fare }}/person </p>
-            <p class="text-center"><strong>Your Wallent Balance:</strong> Rs.{{user.profile.wallet_balance}}</p>
+            <p class="text-center my-5"><strong>Fare:</strong> Rs.{{ fare }}/person </p>
+            <p class="text-center my-5"><strong>Your Wallent Balance:</strong> Rs.{{user.profile.wallet_balance}}</p>
             
 
-        </div>
+        </div> 
+        <h1 class="text-2xl text-white text-center font-semibold mt-2 mb-4 ">Booking Form</h1>
 
-        <form method="post" id="passengerForm">
+        <form method="post" id="passengerForm" class="text-center p-4 rounded-lg">
             {% csrf_token %}
          
-            <label for="id_first_name">Passenger Name:</label>
-            <input type="text" name="first_name" id="id_first_name">
-        
-            <label for="id_age">Age:</label>
-            <input min='0' max='100' type="number" name="age" id="id_age">
-        
+            <input type="text" name="first_name" placeholder="Passenger Name"  id="id_first_name">
+            <input min='0' max='100' type="number" placeholder="age" name="age" id="id_age">
+            <br> <br>
             <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded" onclick="addPassenger()">Add Passenger</button>
             <button type="button" class="bg-red-500 text-white py-2 px-4 rounded" onclick="clearList()">Clear List</button>
 
         </form>
-        <form method='post'>
+        <div  id="passengerList" class="text-lg  text-slate-950 font-semibold bg-[#e85b64b4] p-4 m-2 w-[500px] rounded-xl h-[300px]">
+          <p class="opacity-55 font-normal">  Passenger Information </p>
+        </div>
+        <div id="passenger_tickets_count" class="text-lg font-bold" >
+            Total Tickets : 0
+        </div>
+        <form method='post' class="mt-5">
             {% csrf_token %}
             <input type="hidden" name="backend_passenger_data" id="backend_passenger_data">
             <button type="button" class="bg-green-500 text-white py-2 px-4 rounded" onclick="checkAndSubmit()">Submit</button>
         </form>
         </div>
-        <div id="passengerList">
-        </div>
-        <div >
-            <p id="passenger_tickets_count">
-            </p>
-        </div>
+     
     </div>
-
-
 {% endblock %}
