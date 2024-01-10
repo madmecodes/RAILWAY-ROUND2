@@ -83,4 +83,9 @@ if admin wants to cancel a ticket he check the checkbox
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/4836aebe-fe5c-4dab-94e9-f6c2e8ceb241)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/04c3f7aa-bbc2-4b58-84ae-4fe0b74dc0da)
 
-## Yeah want to add more but i should also respect the deadline so now i will dockerise it and deploy. (i feel i have something to show probably 70/100). #trains
+## added edit functionality for passenger information
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/3089d644-b27e-49ab-b3e2-d766fa4e2a15)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/c7cd3d06-6ae4-4840-a304-1804cfb3e7bf)
+
+
+#### Yeah want to add more but i should also respect the deadline so now i will dockerise it and deploy. (i feel i have something to show probably 70/100). #trains
