@@ -30,6 +30,7 @@ def booking_form(request):
     return redirect("myapp-home")
 
 
+@login_required
 def booking_submit(request):
     if request.method == "POST":
         try:
@@ -40,8 +41,14 @@ def booking_submit(request):
                     total_fare = 0
                     total_tickets = len(passengers)
                     train_number = passengers[0]["train_number"]
-                    ticket_type = passengers[0]["ticket_type"] 
-                    print(train_number,ticket_type)
+                    ticket_type = passengers[0]["ticket_type"]
+
+                    available_seats = get_available_seats(train_number, ticket_type)
+                    if available_seats < total_tickets:
+                        return JsonResponse(
+                            {"success": False, "message": "Not enough available seats."}
+                        )
+
                     for passenger in passengers:
                         total_fare += passenger['ticket_fare']
                     user_profile = request.user.profile
@@ -56,22 +63,12 @@ def booking_submit(request):
                                     passenger_first_name=passenger["name"],
                                     passenger_age=passenger["age"],
                                 )
-                            print(passengers[0]["ticket_type"])
-                            if ticket_type== "1AC":
-                                Train.objects.filter(
-                                    train_number=train_number
-                                ).update(total_seats_1ac=F("total_seats_1ac") - total_tickets)
-                            elif ticket_type== "2AC":
-                                Train.objects.filter(
-                                    train_number=train_number
-                                ).update(total_seats_2ac=F("total_seats_2ac") - total_tickets)
-                            elif ticket_type== "3AC":
-                                Train.objects.filter(
-                                    train_number=train_number
-                                ).update(total_seats_3ac=F("total_seats_3ac") - total_tickets)
+
+                            update_available_seats(train_number, ticket_type, total_tickets)
+
                             user_profile.wallet_balance -= total_fare
                             user_profile.save()
-                            
+
                     return JsonResponse({"success": True})
                 else:
                     return JsonResponse(
@@ -85,7 +82,52 @@ def booking_submit(request):
 
     return JsonResponse({"success": False, "message": "Invalid request method."})
 
+def get_available_seats(train_number, ticket_type):
+    train = get_object_or_404(Train, train_number=train_number)
+    if ticket_type == "1AC":
+        return train.total_seats_1ac
+    elif ticket_type == "2AC":
+        return train.total_seats_2ac
+    elif ticket_type == "3AC":
+        return train.total_seats_3ac
+    else:
+        return 0
 
+def update_available_seats(train_number, ticket_type, booked_seats):
+    if ticket_type == "1AC":
+        Train.objects.filter(
+            train_number=train_number
+        ).update(total_seats_1ac=F("total_seats_1ac") - booked_seats)
+    elif ticket_type == "2AC":
+        Train.objects.filter(
+            train_number=train_number
+        ).update(total_seats_2ac=F("total_seats_2ac") - booked_seats)
+    elif ticket_type == "3AC":
+        Train.objects.filter(
+            train_number=train_number
+        ).update(total_seats_3ac=F("total_seats_3ac") - booked_seats)
+
+@login_required
+def edit_passenger(request, booking_id):
+    passenger = get_object_or_404(Passenger, id=booking_id, user=request.user)
+
+    if request.method == 'POST':
+        try:
+            passenger_info = json.loads(request.body)
+            new_name = passenger_info.get('newName')
+            new_age = passenger_info.get('newAge')
+
+            # Update passenger information
+            passenger.passenger_first_name = new_name
+            passenger.passenger_age = new_age
+            passenger.save()
+
+            return JsonResponse({'success': True, 'message': 'Passenger information updated successfully.'})
+
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)})
+
+    return JsonResponse({'success': False, 'message': 'Invalid request method.'})
 @login_required
 def my_tickets(request):
     bookings = Passenger.objects.filter(user=request.user)

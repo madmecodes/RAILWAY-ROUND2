@@ -53,11 +53,19 @@
                             <input type="hidden" name="total_tickets" value="{{ train.train__total_seats_1ac }}">
                             <input type="hidden" name="train_number" value="{{ train.train__train_number }}">
                             {% csrf_token %}
+                            {% if train.train__total_seats_1ac == 0 %}
+                            <div class="hover:cursor-not-allowed">
+                                <p class="font-bold pt-1">1AC</p>
+                                <p>{{ train.train__total_seats_1ac }} Available</p>
+                                <p class="text-green-600">₹{{ train.relative_fare_1ac }}</p>
+                            </div>
+                            {% else %}
                             <button type="submit">
                                 <p class="font-bold pt-1">1AC</p>
                                 <p>{{ train.train__total_seats_1ac }} Available</p>
                                 <p class="text-green-600">₹{{ train.relative_fare_1ac }}</p>
                             </button>
+                            {% endif %}
                         </form>
                   
                         <form method="POST" action="{% url 'booking_form' %}"  class="bg-slate-200 rounded-lg mx-2 w-1/2 shadow-md">
@@ -66,11 +74,19 @@
                             <input type="hidden" name="total_tickets" value="{{ train.train__total_seats_2ac }}">
                             <input type="hidden" name="train_number" value="{{ train.train__train_number }}">
                             {% csrf_token %}
+                            {% if train.train__total_seats_2ac == 0 %}
+                            <div class="hover:cursor-not-allowed">
+                                <p class="font-bold pt-1">1AC</p>
+                                <p>{{ train.train__total_seats_2ac }} Available</p>
+                                <p class="text-green-600">₹{{ train.relative_fare_2ac }}</p>
+                            </div>
+                            {% else %}
                             <button type="submit">
-                                <p class="font-bold pt-1">2AC</p>
+                                <p class="font-bold pt-1">1AC</p>
                                 <p>{{ train.train__total_seats_2ac }} Available</p>
                                 <p class="text-green-600">₹{{ train.relative_fare_2ac }}</p>
                             </button>
+                            {% endif %}
                         </form>
                         <form method="POST" action="{% url 'booking_form' %}"  class="bg-slate-200 rounded-lg mx-2 w-1/2 shadow-md">
                              <input type="hidden" name="ticket_type" value="3AC">
@@ -78,11 +94,19 @@
                             <input type="hidden" name="total_tickets" value="{{ train.train__total_seats_3ac }}">
                             <input type="hidden" name="train_number" value="{{ train.train__train_number }}">
                             {% csrf_token %}
+                            {% if train.train__total_seats_3ac == 0 %}
+                            <div class="hover:cursor-not-allowed">
+                                <p class="font-bold pt-1">1AC</p>
+                                <p>{{ train.train__total_seats_3ac }} Available</p>
+                                <p class="text-green-600">₹{{ train.relative_fare_3ac }}</p>
+                            </div>
+                            {% else %}
                             <button type="submit">
-                                <p class="font-bold pt-1">3AC</p>
+                                <p class="font-bold pt-1">1AC</p>
                                 <p>{{ train.train__total_seats_3ac }} Available</p>
                                 <p class="text-green-600">₹{{ train.relative_fare_3ac }}</p>
                             </button>
+                            {% endif %}
                         </form>
                 </div>
                 {% comment %} TICKET CARDS END {% endcomment %}
