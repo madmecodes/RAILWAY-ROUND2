@@ -87,5 +87,11 @@ if admin wants to cancel a ticket he check the checkbox <br>
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/3089d644-b27e-49ab-b3e2-d766fa4e2a15)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/c7cd3d06-6ae4-4840-a304-1804cfb3e7bf)
 
+## Successfully added search and filter by data :)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/e0290be6-e74f-401b-9bdd-97af780d1ca1)
+input the date get the day from date and simply filter in ORM
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/8823784d-03d5-43cd-92b5-91ff28389438)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/ccff6e6d-219c-4a01-acb8-2564543967ab)
 
-#### Yeah want to add more but i should also respect the deadline so now i will dockerise it and deploy. (i feel i have something to show probably 70/100). #trains
+
+#### Yeah want to add more but i should also respect the deadline so now i will dockerise it and deploy. (i feel i have something to show probably 80/100). #trains
