@@ -71,11 +71,10 @@ As of 8 jan  [4jan to 8jan ] ; Deadline approached :( will add more in future, f
 
 ==
 <br>
-Todos: (out of time :{ )
-1. now we can  mail this by retreiving data from Passenger model and mail to request.user
-2. can edit data say name in myticket by introducing edit button and  edit button will make a post request function in a view
-3. can add more complexity that is search trains by date can introduce calender feature in frontend which will then check corresponding day for date and further filter down relevant trains in frontend
-4. talking about cancellation and refund, admin can change cancel_status from dashboard and in frontend we can update it <br>
+Todos: 2 remaining
+1. Mail, PDF and Allauth
+2. Cancellation
+3. Live Train status <br>
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/c19685b5-43c3-4887-b598-26e52f2a777a) <br>
 in def self im taking instance as passenger-name-createdby<br>
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/81df86dc-ea7b-4139-85d5-843da78cc4b0) <br>
