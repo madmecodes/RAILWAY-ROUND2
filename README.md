@@ -101,3 +101,8 @@ input the date get the day from date and simply filter in ORM
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/04c1736c-fd58-4274-a110-31a42bf26734)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/1b649a8e-e127-4189-9452-986e48ef1995)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/bfdd11c5-2e66-434a-b5b7-9f7b7feb631d)
+
+## Mail Service added
+
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/717e42ec-ae73-425e-9de2-8eed692984a5)
+
