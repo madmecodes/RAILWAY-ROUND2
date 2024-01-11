@@ -97,7 +97,7 @@ input the date get the day from date and simply filter in ORM
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/7b2f337b-66fb-4387-897c-6e20f5c9ed1e)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/106da77b-1c5f-4537-8b72-0669bc58ea48)
 
-## canceled ticket by admin Ticket
+## cancelled ticket by admin!
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/04c1736c-fd58-4274-a110-31a42bf26734)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/1b649a8e-e127-4189-9452-986e48ef1995)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/bfdd11c5-2e66-434a-b5b7-9f7b7feb631d)
