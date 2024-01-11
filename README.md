@@ -1,4 +1,4 @@
-# work in progress
+# ALmost Done 90/100
 
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/6f6c72c3-e357-4116-b191-6b647edfa518)
 
@@ -101,6 +101,3 @@ input the date get the day from date and simply filter in ORM
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/04c1736c-fd58-4274-a110-31a42bf26734)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/1b649a8e-e127-4189-9452-986e48ef1995)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/bfdd11c5-2e66-434a-b5b7-9f7b7feb631d)
-
-
-#### Yeah want to add more but i should also respect the deadline so now i will dockerise it and deploy. (i feel i have something to show probably 80/100). #trains
