@@ -101,8 +101,8 @@
         <form method="post" id="passengerForm" class="text-center p-4 w-full rounded-lg">
             {% csrf_token %}
          
-            <input class="rounded-lg w-2/6 " type="text" name="first_name" placeholder="Passenger Name"  id="id_first_name">
-            <input class="rounded-lg" min='0' max='100' type="number" placeholder="age" name="age" id="id_age">
+            <input autocomplete="off" class="rounded-lg w-2/6 " type="text" name="first_name" placeholder="Passenger Name"  id="id_first_name">
+            <input autocomplete="off" class="rounded-lg" min='0' max='100' type="number" placeholder="age" name="age" id="id_age">
             <br> <br>
             <button type="button" class="bg-red-800 hover:bg-red-600 text-white py-2 px-4 rounded" onclick="addPassenger()">Add Passenger</button>
             <button type="button" class="bg-red-800 hover:bg-red-600 text-white py-2 px-4 rounded" onclick="clearList()">Clear List</button>
