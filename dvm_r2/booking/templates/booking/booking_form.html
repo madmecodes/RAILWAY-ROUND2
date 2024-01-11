@@ -7,6 +7,7 @@
     let ticket_fare = {{fare}}
     let train_number = "{{train_number}}"
     let ticket_type = "{{ticket_type}}"
+    let travel_date = "{{travel_date}}"
     let wallet_balance = {{user.profile.wallet_balance}};
 
     function updateHiddenInput(){
@@ -22,6 +23,7 @@
                 ticket_fare:ticket_fare,
                 train_number:train_number,
                 ticket_type:ticket_type,
+                travel_date: travel_date
             };
             passengers.push(passenger);
             passenger_count++;
@@ -92,6 +94,7 @@
                 <p class="my-5"><strong>- {{ total_seats }} Available:</strong> </p>
             </div>
             <p class="text-center my-5"><strong>Fare:</strong> Rs.{{ fare }}/person </p>
+            <p class="text-center my-5"><strong>Date:</strong> {{ travel_date}} </p>
             <p class="text-center my-5"><strong>Your Wallent Balance:</strong> Rs.{{user.profile.wallet_balance}}</p>
             
 

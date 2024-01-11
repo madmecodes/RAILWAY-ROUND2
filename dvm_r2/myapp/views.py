@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Train, Station
 from django.db.models import F, Case, When, Value, Min, CharField, Q
 from django.db import models
+from datetime import datetime
 
 
 def home(request):
@@ -39,7 +40,25 @@ def choose_train(request):
 #   AND s2.station_code = 'ST7'
 #   AND s1.arrival_time < s2.arrival_time;
 
-def get_relevant_train_number_and_time(source_station, destination_station):
+def get_abbreviated_day(travel_date):
+
+    date_object = datetime.strptime(travel_date, '%Y-%m-%d').date()
+
+    day_of_week = date_object.strftime('%A')
+    day_mapping = {
+        'Monday': 'M',
+        'Tuesday': 'Tu',
+        'Wednesday': 'W',
+        'Thursday': 'Th',
+        'Friday': 'F',
+        'Saturday': 'Sa',
+        'Sunday': 'Su',
+    }
+    return day_mapping.get(day_of_week, '')
+
+def get_relevant_train_number_and_time(source_station, destination_station,travel_date):
+    user_day = get_abbreviated_day(travel_date)
+    print(user_day)
     relevant_trains = (
         Station.objects
         .filter(station_code=source_station)
@@ -54,7 +73,7 @@ def get_relevant_train_number_and_time(source_station, destination_station):
                 filter=Q(train__station__station_code=destination_station)
             )
         )
-        .filter(destination_arrival_time__gt=F('arrival_time'))
+        .filter(destination_arrival_time__gt=F('arrival_time'), train__runs_on__icontains=user_day)
         .values(
             'train__train_number', 
             'arrival_time', 
@@ -96,7 +115,9 @@ def choose_train_list(request):
     if request.method == 'POST':
         source_station = request.POST.get('source_station', '')
         destination_station = request.POST.get('destination_station', '')
-        relevant_trains = get_relevant_train_number_and_time(source_station, destination_station)
+        travel_date = request.POST.get('travel_date','')
+       
+        relevant_trains = get_relevant_train_number_and_time(source_station, destination_station,travel_date)
 
         overall_relative_distance = calculate_overall_relative_distance(relevant_trains)
 
@@ -112,6 +133,8 @@ def choose_train_list(request):
             'source_station': source_station,
             'destination_station': destination_station,
             'overall_relative_distance': overall_relative_distance,
+            'travel_date': travel_date
         }
 
         return render(request, 'myapp/choose_train_list.html', context)
+    

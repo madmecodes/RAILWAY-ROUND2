@@ -17,6 +17,7 @@
                         <th class="px-4 py-2">Edit</th>
                         <th class="px-4 py-2">Train Number</th>
                         <th class="px-4 py-2">Ticket Type</th>
+                        <th class="px-4 py-2">Travel Date</th>
                         <th class="px-4 py-2">Fare</th>
                         <th class="px-4 py-2">Status</th>
                     </tr>
@@ -39,6 +40,7 @@
                         </td>
                         <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">{{ booking.train_number }}</td>
                         <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">{{ booking.ticket_type }}</td>
+                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">{{ booking.travel_date }}</td>
                         <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">Rs.{{ booking.fare }}</td>
                         <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">
                             {% if booking.cancel_status %}

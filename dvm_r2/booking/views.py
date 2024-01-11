@@ -6,7 +6,6 @@ from myapp.models import Train
 import json
 from django.db import transaction
 from django.db.models import F
-
 # Create your views here.
 
 
@@ -17,12 +16,14 @@ def booking_form(request):
         fare = request.POST.get("fare")
         total_seats = request.POST.get("total_tickets")
         train_number = request.POST.get("train_number")
+        travel_date = request.POST.get("travel_date")
 
         context = {
             "ticket_type": ticket_type,
             "fare": fare,
             "total_seats": total_seats,
             "train_number": train_number,
+            "travel_date": travel_date
         }
 
         return render(request, "booking/booking_form.html", context)
@@ -42,6 +43,7 @@ def booking_submit(request):
                     total_tickets = len(passengers)
                     train_number = passengers[0]["train_number"]
                     ticket_type = passengers[0]["ticket_type"]
+                    travel_date = passengers[0]["travel_date"]
 
                     available_seats = get_available_seats(train_number, ticket_type)
                     if available_seats < total_tickets:
@@ -62,6 +64,8 @@ def booking_submit(request):
                                     fare=passenger["ticket_fare"],
                                     passenger_first_name=passenger["name"],
                                     passenger_age=passenger["age"],
+                                    travel_date = travel_date,
+                                    
                                 )
 
                             update_available_seats(train_number, ticket_type, total_tickets)
@@ -117,7 +121,6 @@ def edit_passenger(request, booking_id):
             new_name = passenger_info.get('newName')
             new_age = passenger_info.get('newAge')
 
-            # Update passenger information
             passenger.passenger_first_name = new_name
             passenger.passenger_age = new_age
             passenger.save()

@@ -12,6 +12,7 @@
             {% csrf_token %}
             <input list="choices" id="source_station" name="source_station" placeholder="Source Station">
             <input list="choices" name="destination_station" placeholder="Destination Station">
+            <input type="date" name="travel_date" placeholder="select_date">
             <datalist id="choices">
             {% for station_code in station_codes %}
                 <option value="{{ station_code }}">
@@ -52,6 +53,7 @@
                             <input type="hidden" name="fare" value="{{ train.relative_fare_1ac }}">
                             <input type="hidden" name="total_tickets" value="{{ train.train__total_seats_1ac }}">
                             <input type="hidden" name="train_number" value="{{ train.train__train_number }}">
+                            <input type="hidden" name="travel_date" value="{{ travel_date }}">
                             {% csrf_token %}
                             {% if train.train__total_seats_1ac == 0 %}
                             <div class="hover:cursor-not-allowed">
@@ -73,6 +75,7 @@
                             <input type="hidden" name="fare" value="{{ train.relative_fare_2ac }}">
                             <input type="hidden" name="total_tickets" value="{{ train.train__total_seats_2ac }}">
                             <input type="hidden" name="train_number" value="{{ train.train__train_number }}">
+                            <input type="hidden" name="travel_date" value="{{ travel_date }}">
                             {% csrf_token %}
                             {% if train.train__total_seats_2ac == 0 %}
                             <div class="hover:cursor-not-allowed">
@@ -93,6 +96,7 @@
                             <input type="hidden" name="fare" value="{{ train.relative_fare_3ac }}">
                             <input type="hidden" name="total_tickets" value="{{ train.train__total_seats_3ac }}">
                             <input type="hidden" name="train_number" value="{{ train.train__train_number }}">
+                            <input type="hidden" name="travel_date" value="{{ travel_date }}">
                             {% csrf_token %}
                             {% if train.train__total_seats_3ac == 0 %}
                             <div class="hover:cursor-not-allowed">
