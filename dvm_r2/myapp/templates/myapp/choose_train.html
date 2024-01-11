@@ -13,7 +13,7 @@
             {% csrf_token %}
             <input list="choices" name="source_station" placeholder="Source Station">
             <input list="choices" name="destination_station" placeholder="Destination Station">
-            <input type="date" name="travel_date" placeholder="select_date">
+            <input type="date" name="travel_date" >
             <datalist id="choices">
             {% for station_code in station_codes %}
                 <option value="{{ station_code }}">

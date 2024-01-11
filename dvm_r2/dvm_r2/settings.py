@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "tailwind",
+    'import_export',
     "myapp.apps.MyappConfig",
     "booking.apps.BookingConfig",
     "theme",
