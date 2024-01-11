@@ -93,5 +93,10 @@ input the date get the day from date and simply filter in ORM
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/8823784d-03d5-43cd-92b5-91ff28389438)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/ccff6e6d-219c-4a01-acb8-2564543967ab)
 
+## added export  option for Passenger Model, so that admin can download a excel view.
+
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/7b2f337b-66fb-4387-897c-6e20f5c9ed1e)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/106da77b-1c5f-4537-8b72-0669bc58ea48)
+
 
 #### Yeah want to add more but i should also respect the deadline so now i will dockerise it and deploy. (i feel i have something to show probably 80/100). #trains
