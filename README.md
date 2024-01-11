@@ -73,8 +73,8 @@ As of 8 jan  [4jan to 8jan ] ; Deadline approached :( will add more in future, f
 <br>
 Todos: 2 remaining
 1. Mail, PDF and Allauth
-2. Cancellation
-3. Live Train status <br>
+2. Live Train status <br>
+
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/c19685b5-43c3-4887-b598-26e52f2a777a) <br>
 in def self im taking instance as passenger-name-createdby<br>
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/81df86dc-ea7b-4139-85d5-843da78cc4b0) <br>
@@ -96,6 +96,11 @@ input the date get the day from date and simply filter in ORM
 
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/7b2f337b-66fb-4387-897c-6e20f5c9ed1e)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/106da77b-1c5f-4537-8b72-0669bc58ea48)
+
+## canceled ticket by admin Ticket
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/04c1736c-fd58-4274-a110-31a42bf26734)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/1b649a8e-e127-4189-9452-986e48ef1995)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/bfdd11c5-2e66-434a-b5b7-9f7b7feb631d)
 
 
 #### Yeah want to add more but i should also respect the deadline so now i will dockerise it and deploy. (i feel i have something to show probably 80/100). #trains
