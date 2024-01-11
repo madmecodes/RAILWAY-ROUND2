@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Confirmation</title>
+</head>
+<body>
+    <h1>Booking Confirmation</h1>
+    <p>Thank you for booking with us! Here are the details of your booking:</p>
+
+    {% for passenger in passengers %}
+        <p>Passenger Name: {{ passenger.name }}</p>
+        <p>Age: {{ passenger.age }}</p>
+        <p>Ticket Fare: Rs.{{ passenger.ticket_fare }}</p>
+        <p>Train Number:{{ passenger.train_number }}</p>
+        <p>Travel Date: {{ travel_date}}</p>
+        <hr>
+    {% endfor %}
+</body>
+</html>

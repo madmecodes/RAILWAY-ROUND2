@@ -6,6 +6,9 @@ from myapp.models import Train
 import json
 from django.db import transaction
 from django.db.models import F
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 # Create your views here.
 
 
@@ -72,6 +75,7 @@ def booking_submit(request):
 
                             user_profile.wallet_balance -= total_fare
                             user_profile.save()
+                            send_booking_confirmation_email(request.user.email,passengers,travel_date)
 
                     return JsonResponse({"success": True})
                 else:
@@ -136,3 +140,11 @@ def my_tickets(request):
     bookings = Passenger.objects.filter(user=request.user)
     context = {"bookings": bookings}
     return render(request, "booking/mytickets.html", context)
+
+def send_booking_confirmation_email(user_email,passengers,travel_date):
+    subject = 'Booking Confirmation'
+    message = render_to_string('booking/booking_confirmation_email.html', {'passengers':passengers,'travel_date':travel_date})
+    plain_message = strip_tags(message)
+    from_email = "ayushguptadev1@gmail.com"
+    recipient_list = [user_email]
+    send_mail(subject,plain_message,from_email,recipient_list,html_message=message)
