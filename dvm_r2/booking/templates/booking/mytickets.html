@@ -25,28 +25,49 @@
                 <tbody>
                     {% for booking in bookings %}
                     <tr class="m-2">
-                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[300px] h-[110px]">
+                    {% if booking.cancel_status %}
+                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#524a4bd6] w-[300px] h-[110px]">
                             <span id="passenger_name_{{ booking.id }}">{{ booking.passenger_first_name }}</span>
                             <input class="w-52 text-black" type="text" id="edit_passenger_name_{{ booking.id }}" style="display: none;" value="{{ booking.passenger_first_name }}">
                         </td>
-                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[200px] h-[110px] ">
+                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#524a4bd6] w-[200px] h-[110px] ">
                             <span id="passenger_age_{{ booking.id }}">{{ booking.passenger_age }}</span>
                             <input class=" text-black" type="number" min="0" max="100" id="edit_passenger_age_{{ booking.id }}" style="display: none;" value="{{ booking.passenger_age }}">
                         </td>
-                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[220px] h-[110px] ">
-                            <button class="text-white bg-slate-600 hover:opacity-100 opacity-85 m-1 p-3 rounded-lg " onclick="editPassenger({{ booking.id }})">Edit</button>
-                            <button class="text-white bg-slate-600 hover:opacity-100 opacity-85 m-1 p-3 rounded-lg " onclick="saveChanges({{ booking.id }})" style="display: none;">Save</button>
-                            <button class="text-white bg-slate-600 hover:opacity-100 opacity-85 m-1 p-3 rounded-lg " onclick="cancelChanges({{ booking.id }})" style="display: none;">Cancel</button>
+                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#524a4bd6] w-[220px] h-[110px] ">
+                            <button class="text-white bg-slate-600 hover:opacity-100 opacity-85 m-1 p-3 w-20 cursor-not-allowed rounded-lg ">x</button>
                         </td>
+                            <td class="border px-4 py-2  text-slate-200 font-bold bg-[#524a4bd6] w-[110] h-[110px] ">{{ booking.train_number }}</td>
+                        <td class="border px-4 py-2  text-slate-200 font-bold bg-[#524a4bd6] w-[110] h-[110px] ">{{ booking.ticket_type }}</td>
+                        <td class="border px-4 py-2  text-slate-200 font-bold bg-[#524a4bd6] w-[110] h-[110px] ">{{ booking.travel_date }}</td>
+                        <td class="border px-4 py-2  text-slate-200 font-bold bg-[#524a4bd6] w-[110] h-[110px] ">Rs.{{ booking.fare }}</td>
+                       {% else %}
+                       <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[300px] h-[110px]">
+                        <span id="passenger_name_{{ booking.id }}">{{ booking.passenger_first_name }}</span>
+                        <input class="w-52 text-black" type="text" id="edit_passenger_name_{{ booking.id }}" style="display: none;" value="{{ booking.passenger_first_name }}">
+                    </td>
+                    <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[200px] h-[110px] ">
+                        <span id="passenger_age_{{ booking.id }}">{{ booking.passenger_age }}</span>
+                        <input class=" text-black" type="number" min="0" max="100" id="edit_passenger_age_{{ booking.id }}" style="display: none;" value="{{ booking.passenger_age }}">
+                    </td>
+                    <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[220px] h-[110px] ">
+                        <button class="text-white bg-slate-600 hover:opacity-100 opacity-85 m-1 p-3 rounded-lg " onclick="editPassenger({{ booking.id }})">Edit</button>
+                        <button class="text-white bg-slate-600 hover:opacity-100 opacity-85 m-1 p-3 rounded-lg " onclick="saveChanges({{ booking.id }})" style="display: none;">Save</button>
+                        <button class="text-white bg-slate-600 hover:opacity-100 opacity-85 m-1 p-3 rounded-lg " onclick="cancelChanges({{ booking.id }})" style="display: none;">Cancel</button>
+                    </td>
                         <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">{{ booking.train_number }}</td>
                         <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">{{ booking.ticket_type }}</td>
                         <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">{{ booking.travel_date }}</td>
                         <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">Rs.{{ booking.fare }}</td>
-                        <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">
+                        {% endif %}
                             {% if booking.cancel_status %}
-                                Rejected
+                            <td class="border px-4 py-2 text-slate-200 font-bold bg-[#524a4bd6] w-[110] h-[110px] ">
+                                Rejected (refunded)
+                            </td>
                             {% else %}
+                            <td class="border px-4 py-2 text-slate-200 font-bold bg-[#d84e55d6] w-[110] h-[110px] ">
                                 Active
+                            </td>
                             {% endif %}
                         </td>
                     </tr>
