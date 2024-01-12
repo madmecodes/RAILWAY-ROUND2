@@ -10,9 +10,9 @@
         <h1 class="text-white text-4xl font-bold text-center mb-6">Train Ticket Booking</h1>
         <form method="POST" action={% url 'choose_train_list' %}>
             {% csrf_token %}
-            <input list="choices" id="source_station" name="source_station" placeholder="Source Station">
-            <input list="choices" name="destination_station" placeholder="Destination Station">
-            <input type="date" name="travel_date" placeholder="select_date">
+            <input list="choices" id="source_station" name="source_station" placeholder="Source Station" required>
+            <input list="choices" name="destination_station" placeholder="Destination Station" required>
+            <input type="date" name="travel_date" placeholder="select_date" required>
             <datalist id="choices">
             {% for station_code in station_codes %}
                 <option value="{{ station_code }}">
@@ -79,13 +79,13 @@
                             {% csrf_token %}
                             {% if train.train__total_seats_2ac == 0 %}
                             <div class="hover:cursor-not-allowed">
-                                <p class="font-bold pt-1">1AC</p>
+                                <p class="font-bold pt-1">2AC</p>
                                 <p>{{ train.train__total_seats_2ac }} Available</p>
                                 <p class="text-green-600">₹{{ train.relative_fare_2ac }}</p>
                             </div>
                             {% else %}
                             <button type="submit">
-                                <p class="font-bold pt-1">1AC</p>
+                                <p class="font-bold pt-1">2AC</p>
                                 <p>{{ train.train__total_seats_2ac }} Available</p>
                                 <p class="text-green-600">₹{{ train.relative_fare_2ac }}</p>
                             </button>
@@ -100,13 +100,13 @@
                             {% csrf_token %}
                             {% if train.train__total_seats_3ac == 0 %}
                             <div class="hover:cursor-not-allowed">
-                                <p class="font-bold pt-1">1AC</p>
+                                <p class="font-bold pt-1">3AC</p>
                                 <p>{{ train.train__total_seats_3ac }} Available</p>
                                 <p class="text-green-600">₹{{ train.relative_fare_3ac }}</p>
                             </div>
                             {% else %}
                             <button type="submit">
-                                <p class="font-bold pt-1">1AC</p>
+                                <p class="font-bold pt-1">3AC</p>
                                 <p>{{ train.train__total_seats_3ac }} Available</p>
                                 <p class="text-green-600">₹{{ train.relative_fare_3ac }}</p>
                             </button>

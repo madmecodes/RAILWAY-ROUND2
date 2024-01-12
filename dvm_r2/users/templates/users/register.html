@@ -33,6 +33,11 @@
                 <button class="py-4 px-8 text-lg mt-5 bg-red-500 hover:bg-red-900 text-white rounded-xl"> Submit</button>
             </div>
         </form>
+        {% load socialaccount%}
+        <div class="text-white text-center my-2 relative"> OR</div>
+        <div class="flex justify-center items-center relative ">
+        <a class= "p-2 bg-red-500 text-white hover:bg-red-800 rounded-lg" href = "{% provider_login_url 'google' %}?next=/"> Login with Google</a>
+        </div>
     </div>
 </div>
 {% endblock %}

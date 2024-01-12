@@ -22,6 +22,7 @@ def register(request):
 
 @login_required
 def profile(request):
+    Profile.objects.get_or_create(user=request.user) # creating for allauth users so that they have profile instance
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST,instance=request.user)
         p_form = ProfileAddMoneyForm(request.POST,instance=request.user.profile)
