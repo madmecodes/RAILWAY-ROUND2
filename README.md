@@ -1,4 +1,4 @@
-# ALmost Done 90/100
+# Completed!
 
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/6f6c72c3-e357-4116-b191-6b647edfa518)
 
@@ -65,15 +65,10 @@ after successfull payment user redirected to myticket page, wallet money deducte
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/dd4821b6-cd81-49c6-b8e4-64ff88813880)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/2efd5594-dbf7-4c6c-b4b4-632e426eaec7)
 
-==== 
-
-As of 8 jan  [4jan to 8jan ] ; Deadline approached :( will add more in future, for the task judgement i have included most of the functionality
-
-==
+===
+after jan 8
 <br>
-Todos: 2 remaining
-1. Mail, PDF and Allauth
-2. Live Train status <br>
+
 
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/c19685b5-43c3-4887-b598-26e52f2a777a) <br>
 in def self im taking instance as passenger-name-createdby<br>
@@ -105,4 +100,9 @@ input the date get the day from date and simply filter in ORM
 ## Mail Service added
 
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/717e42ec-ae73-425e-9de2-8eed692984a5)
+
+## Google signIn allauth added
+(django automatically created necessary fields, nice!)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/16f37c39-1f4c-4466-ac29-a450563775aa)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/55998334-9c33-4b10-9a32-672adc8db5bb)
 
