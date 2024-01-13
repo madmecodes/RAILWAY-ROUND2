@@ -3,9 +3,13 @@ from django.urls import path, include
 from users import views as user_views
 from django.contrib.auth import views as auth_views
 from users.forms import LoginForm
+from booking.admin import booking_admin_site
+from myapp.admin import TrainAndStationAdminArea_site
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('booking/admin/',booking_admin_site.urls),
+    path('trainstation/admin/',TrainAndStationAdminArea_site.urls),
     path('', include('myapp.urls')),
     path('booking/',include('booking.urls')),
     path("__reload__/", include("django_browser_reload.urls")),

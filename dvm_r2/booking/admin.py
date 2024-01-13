@@ -1,11 +1,15 @@
 from django.contrib import admin
-from .models import Passenger
 from import_export.admin import ImportExportModelAdmin
+from .models import Passenger
 from .resources import PassengerResource
 from myapp.models import Train
-# Register your models here.
 
-@admin.register(Passenger)
+class BookingAdminArea(admin.AdminSite):
+    site_header = 'Booking Admin Area'
+    site_title = "Booking Admin Area Title"
+
+booking_admin_site = BookingAdminArea(name="BookingAdmin")
+
 class PassengerAdmin(ImportExportModelAdmin):
     resource_class = PassengerResource
 
@@ -27,7 +31,7 @@ class PassengerAdmin(ImportExportModelAdmin):
                 elif obj.ticket_type == '3AC':
                     train.total_seats_3ac += 1
                 train.save()
-        if cancel_status==False:
+        if not cancel_status:
             obj.user.profile.wallet_balance -= obj.fare
             obj.user.profile.save()
             print(f"Wallet balance updated: {obj.user.profile.wallet_balance}")
@@ -44,4 +48,5 @@ class PassengerAdmin(ImportExportModelAdmin):
                     train.total_seats_3ac -= 1
                 train.save()
 
-
+admin.site.register(Passenger, PassengerAdmin)
+booking_admin_site.register(Passenger, PassengerAdmin)

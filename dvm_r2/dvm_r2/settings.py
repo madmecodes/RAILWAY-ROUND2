@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     "theme",
     "users.apps.UsersConfig",
     "django_browser_reload",
+    'adminlte3',
+    'adminlte3_theme',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -54,6 +56,11 @@ SOCIALACCOUNT_PROVIDERS = {
             "email"
         ],
         "AUTH_PARAMS" : {"access_type" : "online"},
+        # 'APP': {
+        #     'client_id': config('GOOGLE_CLIENT_ID'),
+        #     'secret': config('GOOGLE_CLIENT_SECRET'),
+        #     'key': '',
+        # }
     }
 }
 
@@ -108,18 +115,41 @@ WSGI_APPLICATION = "dvm_r2.wsgi.application"
 
 load_dotenv()
 
+# if config("DOCKERIZED", default=False, cast=bool):
+#     # Running inside Docker container
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql_psycopg2",
+#             "NAME": config("DB_NAME"),
+#             "USER": config("DB_USER"),
+#             "PASSWORD": config("DB_PASSWORD"),
+#             "HOST": config("DB_HOST"),
+#             "PORT": config("DB_PORT"),
+#         }
+#     }
+# else:
+    # Running locally
+    # DATABASES = {
+    #     "default": {
+    #         "ENGINE": "django.db.backends.postgresql_psycopg2",
+    #         "NAME": config("DB_NAME_LOCAL"),
+    #         "USER": config("DB_USER_LOCAL"),
+    #         "PASSWORD": config("DB_PASSWORD_LOCAL"),
+    #         "HOST": config("DB_HOST_LOCAL"),
+    #         "PORT": config("DB_PORT_LOCAL"),
+    #     }
+    # }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": config("DB_NAME"),
-        "USER": config("DB_USER"),
-        "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST"),
-        "PORT": config("DB_PORT"),
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": config("DB_NAME_LOCAL"),
+            "USER": config("DB_USER_LOCAL"),
+            "PASSWORD": config("DB_PASSWORD_LOCAL"),
+            "HOST": config("DB_HOST_LOCAL"),
+            "PORT": config("DB_PORT_LOCAL"),
+        }
     }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -158,12 +188,13 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "myapp/static"),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGIN_REDIRECT_URL = "myapp-home"
+LOGIN_REDIRECT_URL = "profile"
 
 LOGOUT_REDIRECT_URL = "myapp-home"
 LOGIN_URL = "login"

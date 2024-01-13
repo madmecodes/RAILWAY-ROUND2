@@ -2,12 +2,16 @@
 import pandas as pd
 from django.core.management.base import BaseCommand
 from myapp.models import Station as myapp_station, Train
-
+import os
 class Command(BaseCommand):
     help = 'Populate myapp_station model from Excel file'
 
     def handle(self, *args, **kwargs):
-        file_path = '/home/madmecodes/Projects/RAILWAY-ROUND2/dvm_r2/myapp/management/commands/stationExcelData.xlsx'
+        current_file_path = os.path.abspath(__file__)
+        current_directory = os.path.dirname(current_file_path)
+        file_path = os.path.join(current_directory, 'stationExcelData.xlsx')
+        # file_path = '/home/madmecodes/Projects/RAILWAY-ROUND2/dvm_r2/myapp/management/commands/stationExcelData.xlsx'
+        # file_path = './stationExcelData.xlsx'
 
         try:
             df = pd.read_excel(file_path)

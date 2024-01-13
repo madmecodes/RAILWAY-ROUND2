@@ -5,6 +5,7 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileAddMoneyForm
 from django.contrib.auth import logout as logouts 
 from django.contrib.auth.decorators import login_required
 from .models import Profile
+from .decorators import check_role
 # Create your views here.
 
 def register(request):
@@ -21,6 +22,7 @@ def register(request):
     return render(request,'users/register.html',{'form':form})
 
 @login_required
+@check_role
 def profile(request):
     Profile.objects.get_or_create(user=request.user) # creating for allauth users so that they have profile instance
     if request.method == 'POST':
@@ -38,8 +40,8 @@ def profile(request):
 
 
 def logout(request):
+    logouts(request)
     if request.method == 'POST':
-        logouts(request)
-        return redirect('/')
+        return redirect('/logout/') 
     else:
-        return redirect(request,"myapp-home")
+        return redirect("myapp-home")
