@@ -99,7 +99,7 @@ input the date get the day from date and simply filter in ORM
 
 ## Mail Service added
 
-![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/717e42ec-ae73-425e-9de2-8eed692984a5)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/01dca2ef-8343-4478-8d19-aff3d4f5c59c)
 
 ## added user staff permission and login with same interface of website
 
