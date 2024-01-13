@@ -101,6 +101,15 @@ input the date get the day from date and simply filter in ORM
 
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/717e42ec-ae73-425e-9de2-8eed692984a5)
 
+## added user staff permission and login with same interface of website
+
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/915328eb-79e5-496b-b4c4-37db6dd380af)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/94c44bb1-9542-4298-a8d3-acbd5b94382c)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/d3772f62-d4a0-49ef-a3c6-0205de9e1659)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/2ea9abc7-570f-4461-823a-1a8fc66cadf0)
+![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/7e3a64e3-f83b-4c95-9e1d-63e2c5e36c0b)
+
+
 ## Google signIn allauth added
 (django automatically created necessary fields, nice!)
 ![image](https://github.com/Ayush-gupta-dev/RAILWAY-ROUND2/assets/137040550/16f37c39-1f4c-4466-ac29-a450563775aa)
