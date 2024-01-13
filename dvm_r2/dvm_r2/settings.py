@@ -12,13 +12,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-w-r!)wn-g1e-c$hmjl37pa4px0jir1s=&@$)*zh773qsgho_mh"
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False
 DEBUG = True
-# ALLOWED_HOSTS = ['localhost']
-ALLOWED_HOSTS = []
+# DEBUG = bool(os.environ.get("DEBUG", default=0))
 
+# ALLOWED_HOSTS = ['localhost']
+# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0' ,'[::1]', '172.17.34.232']
 
 # Application definition
 
@@ -56,11 +60,12 @@ SOCIALACCOUNT_PROVIDERS = {
             "email"
         ],
         "AUTH_PARAMS" : {"access_type" : "online"},
-        # 'APP': {
-        #     'client_id': config('GOOGLE_CLIENT_ID'),
-        #     'secret': config('GOOGLE_CLIENT_SECRET'),
-        #     'key': '',
-        # }
+        # comment it if using local uncomment if dockerised
+        'APP': {
+            'client_id': config('GOOGLE_CLIENT_ID'),
+            'secret': config('GOOGLE_CLIENT_SECRET'),
+            'key': '',
+        }
     }
 }
 
@@ -115,39 +120,27 @@ WSGI_APPLICATION = "dvm_r2.wsgi.application"
 
 load_dotenv()
 
-# if config("DOCKERIZED", default=False, cast=bool):
-#     # Running inside Docker container
-#     DATABASES = {
+## in local
+# DATABASES = {
 #         "default": {
 #             "ENGINE": "django.db.backends.postgresql_psycopg2",
-#             "NAME": config("DB_NAME"),
-#             "USER": config("DB_USER"),
-#             "PASSWORD": config("DB_PASSWORD"),
-#             "HOST": config("DB_HOST"),
-#             "PORT": config("DB_PORT"),
+#             "NAME": config("DB_NAME_LOCAL"),
+#             "USER": config("DB_USER_LOCAL"),
+#             "PASSWORD": config("DB_PASSWORD_LOCAL"),
+#             "HOST": config("DB_HOST_LOCAL"),
+#             "PORT": config("DB_PORT_LOCAL"),
 #         }
-#     }
-# else:
-    # Running locally
-    # DATABASES = {
-    #     "default": {
-    #         "ENGINE": "django.db.backends.postgresql_psycopg2",
-    #         "NAME": config("DB_NAME_LOCAL"),
-    #         "USER": config("DB_USER_LOCAL"),
-    #         "PASSWORD": config("DB_PASSWORD_LOCAL"),
-    #         "HOST": config("DB_HOST_LOCAL"),
-    #         "PORT": config("DB_PORT_LOCAL"),
-    #     }
-    # }
+# }
 
+# with container
 DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": config("DB_NAME_LOCAL"),
-            "USER": config("DB_USER_LOCAL"),
-            "PASSWORD": config("DB_PASSWORD_LOCAL"),
-            "HOST": config("DB_HOST_LOCAL"),
-            "PORT": config("DB_PORT_LOCAL"),
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": "dvm_db",
+            "USER": "postgres",
+            "PASSWORD": "postgres",
+            "HOST": "db",
+            "PORT": "5432",
         }
     }
 # Password validation

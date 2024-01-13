@@ -11,6 +11,7 @@ cryptography==41.0.7
 defusedxml==0.7.1
 diff-match-patch==20230430
 Django==5.0.1
+django-adminlte-3==0.1.6
 django-allauth==0.60.0
 django-browser-reload==1.12.1
 django-cors-headers==4.3.1

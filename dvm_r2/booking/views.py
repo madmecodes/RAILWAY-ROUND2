@@ -135,6 +135,7 @@ def edit_passenger(request, booking_id):
             return JsonResponse({'success': False, 'message': str(e)})
 
     return JsonResponse({'success': False, 'message': 'Invalid request method.'})
+
 @login_required
 def my_tickets(request):
     bookings = Passenger.objects.filter(user=request.user)
