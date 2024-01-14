@@ -3,6 +3,13 @@
 {% block content %}
 {% include 'myapp/_search_form.html' %}
 
+{% if error_message %}
+<div class="flex justify-center mt-5">
+    <p class="text-red-500 font-bold text-2xl">{{ error_message }}</p>
+</div>
+{% else %}
+
+
 {% comment %} display train data {% endcomment %}
 
 <div class="flex justify-center">
@@ -57,8 +64,6 @@
 </div>
 {% endif %}
 </div>
-
-
-
+{% endif %}
 
 {% endblock %}

@@ -16,14 +16,17 @@ def home(request):
 def train_details(request):
     train_number = request.GET.get('train_number', '')
     if train_number:
-        train = get_object_or_404(Train, train_number=train_number, train_available=True)
+        try:
+            train = Train.objects.get(train_number=train_number, train_available=True)
+        except Train.DoesNotExist:
+            return render(request, 'myapp/train_details.html', {'error_message': 'No relevant train found'})
         stations_list = Station.objects.filter(train=train)
         paginator=Paginator(stations_list,7)
         page= request.GET.get('page')
         stations = paginator.get_page(page)
         return render(request, 'myapp/train_details.html', {'train': train, 'stations': stations})
-    else:
-        return render(request, {'error_message': 'Please enter a valid train number'}, status=404)
+    
+    return render(request, {'error_message': 'Please enter a valid train number'}, status=404)
 
 
 def choose_train(request):

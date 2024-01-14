@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 SECRET_KEY = config('SECRET_KEY')
-DEBUG= config('DEBUG')
+DEBUG= True
 ALLOWED_HOSTS = ['*']
 
 # Application definition
