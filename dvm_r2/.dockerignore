@@ -1,0 +1,12 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+db.sqlite3
+.dockerignore
+.DS_Store
+.idea/
+.vscode/
+node_modules/
+__init__.py
