@@ -8,12 +8,25 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
 
-  app:
-    image: my_dj_app
+  dj_app:
+    build: 
+      context: .
     ports:
       - 8000:8000
     depends_on:
       - db
+    volumes:
+      - static:/usr/src/app/static/
+    env_file:
+      - .env
+  nginx:
+    build: ./nginx
+    volumes:
+      - static:/usr/src/app/static/
+    ports:
+      - 1337:80
+    depends_on:
+      - dj_app
 
   pgadmin:
     image: dpage/pgadmin4
@@ -24,3 +37,5 @@ services:
       - "5050:80"
     depends_on:
       - db
+volumes:
+  static:

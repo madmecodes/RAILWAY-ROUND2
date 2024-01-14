@@ -12,15 +12,15 @@ COPY . .
 
 EXPOSE 8000
 
-RUN pip install gunicorn
+COPY ./entrypoint.sh /
+ENTRYPOINT [ "sh" , "/entrypoint.sh" ]
 
-CMD ["bash", "-c", "\
-python manage.py makemigrations && \
-python manage.py migrate && \
-python manage.py create_initial_trains && \
-python manage.py populate_myapp_station && \
-python manage.py makemigrations && \
-python manage.py migrate && \ 
-python manage.py runserver 0.0.0.0:8000"]
-
+# CMD ["bash", "-c", "\
+# python manage.py makemigrations && \
+# python manage.py migrate && \
+# python manage.py create_initial_trains && \
+# python manage.py populate_myapp_station && \
+# python manage.py makemigrations && \
+# python manage.py migrate && \ 
+# python manage.py runserver 0.0.0.0:8000"]
 

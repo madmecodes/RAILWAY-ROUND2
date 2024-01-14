@@ -3,26 +3,14 @@ from dotenv import load_dotenv
 from decouple import config
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECRET_KEY = "django-insecure-w-r!)wn-g1e-c$hmjl37pa4px0jir1s=&@$)*zh773qsgho_mh"
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-w-r!)wn-g1e-c$hmjl37pa4px0jir1s=&@$)*zh773qsgho_mh"
-# SECRET_KEY = os.environ.get("SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = True
-# DEBUG = bool(os.environ.get("DEBUG", default=0))
-
-# ALLOWED_HOSTS = ['localhost']
-# ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0' ,'[::1]', '172.17.34.232']
+SECRET_KEY = config('SECRET_KEY')
+DEBUG= config('DEBUG')
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -60,7 +48,6 @@ SOCIALACCOUNT_PROVIDERS = {
             "email"
         ],
         "AUTH_PARAMS" : {"access_type" : "online"},
-        # comment it if using local uncomment if dockerised
         'APP': {
             'client_id': config('GOOGLE_CLIENT_ID'),
             'secret': config('GOOGLE_CLIENT_SECRET'),
@@ -107,33 +94,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "dvm_r2.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-load_dotenv()
-
-## in local
-# DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.postgresql_psycopg2",
-#             "NAME": config("DB_NAME_LOCAL"),
-#             "USER": config("DB_USER_LOCAL"),
-#             "PASSWORD": config("DB_PASSWORD_LOCAL"),
-#             "HOST": config("DB_HOST_LOCAL"),
-#             "PORT": config("DB_PORT_LOCAL"),
-#         }
-# }
-
-# with container
-DATABASES = {
+environment = config('DJANGO_ENV', 'local')
+if(environment=='local'):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": config("DB_NAME_LOCAL"),
+            "USER": config("DB_USER_LOCAL"),
+            "PASSWORD": config("DB_PASSWORD_LOCAL"),
+            "HOST": config("DB_HOST_LOCAL"),
+            "PORT": config("DB_PORT_LOCAL"),
+        }
+    }
+elif environment=='container':
+    DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
             "NAME": "dvm_db",
@@ -143,6 +117,10 @@ DATABASES = {
             "PORT": "5432",
         }
     }
+else:
+    print("invalid DB config")
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -178,12 +156,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "myapp/static"),
-]
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+# STATIC_ROOT = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR,'static/')
+print(STATIC_ROOT)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -205,3 +180,5 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend"
 )
 SOCIALACCOUNT_LOGIN_ON_GET=True # stackOverflow said not a secure approach, but i'm fed up of that intermediate confirmation
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
