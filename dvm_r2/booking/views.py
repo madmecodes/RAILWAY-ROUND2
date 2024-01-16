@@ -9,6 +9,7 @@ from django.db.models import F
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from decimal import Decimal
 # Create your views here.
 
 
@@ -20,7 +21,7 @@ def booking_form(request):
         total_seats = request.POST.get("total_tickets")
         train_number = request.POST.get("train_number")
         travel_date = request.POST.get("travel_date")
-
+        print(ticket_type,train_number,travel_date)
         context = {
             "ticket_type": ticket_type,
             "fare": fare,
@@ -90,6 +91,35 @@ def booking_submit(request):
 
     return JsonResponse({"success": False, "message": "Invalid request method."})
 
+def booking_submit_no_js(request):
+    if request.method=="POST":
+        print("called")
+        total_fare=0
+        user_profile= request.user.profile
+        passenger_first_name = request.POST.get("first_name")
+        passenger_age = request.POST.get("age")
+        passenger_train_number = request.POST.get("train_number")
+        passenger_train_fare = request.POST.get("fare")
+        passenger_travel_date= request.POST.get("travel_date")
+        passenger_ticket_type= request.POST.get("ticket_type")
+        available_seats = get_available_seats(passenger_train_number,passenger_ticket_type)
+        with transaction.atomic():
+            if(available_seats>0 and user_profile.wallet_balance > Decimal(passenger_train_fare)):
+                Passenger.objects.create(
+                    user=request.user,
+                    train_number =passenger_train_number,
+                    ticket_type= passenger_ticket_type,
+                    fare= passenger_train_fare,
+                    passenger_first_name= passenger_first_name,
+                    passenger_age = passenger_age,
+                    travel_date = passenger_travel_date
+                )
+                update_available_seats(passenger_train_number,passenger_ticket_type,1)
+                user_profile.wallet_balance -=  Decimal(passenger_train_fare)
+                user_profile.save()
+        return redirect("my_tickets")
+
+
 def get_available_seats(train_number, ticket_type):
     train = get_object_or_404(Train, train_number=train_number)
     if ticket_type == "1AC":
@@ -149,3 +179,4 @@ def send_booking_confirmation_email(user_email,passengers,travel_date):
     from_email = "ayushguptadev1@gmail.com"
     recipient_list = [user_email]
     send_mail(subject,plain_message,from_email,recipient_list,html_message=message)
+    fail_silently=False
