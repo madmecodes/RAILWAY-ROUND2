@@ -185,3 +185,7 @@ AUTHENTICATION_BACKENDS = (
 SOCIALACCOUNT_LOGIN_ON_GET=True # stackOverflow said not a secure approach, but i'm fed up of that intermediate confirmation
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:8000", "http://localhost:1337"]
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
