@@ -6,8 +6,10 @@ from django.contrib.auth import logout as logouts
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 from .decorators import check_role
-# Create your views here.
+from django.db.models import F
 
+# Create your views here.
+ 
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -24,18 +26,19 @@ def register(request):
 @login_required
 @check_role
 def profile(request):
-    Profile.objects.get_or_create(user=request.user) # creating for allauth users so that they have profile instance
+    profile_instance, created = Profile.objects.get_or_create(user=request.user) # creating for allauth users so that they have profile instance
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST,instance=request.user)
         p_form = ProfileAddMoneyForm(request.POST,instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
-            return redirect('profile')
+            profile_instance.wallet_balance = F('wallet_balance') + p_form.cleaned_data['wallet_balance']
+            profile_instance.save()
+            profile_instance = Profile.objects.get(user=request.user)
+            p_form = ProfileAddMoneyForm(instance=profile_instance, initial={'wallet_balance': 0})
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form= ProfileAddMoneyForm(instance=request.user.profile)
-    context = {'u_form':u_form,'p_form':p_form}
+        p_form = ProfileAddMoneyForm(initial={'wallet_balance': 0})
+    context = {'u_form':u_form,'p_form':p_form,'wallet_balance': profile_instance.wallet_balance}
     return render(request,'users/profile.html',context)
 
 

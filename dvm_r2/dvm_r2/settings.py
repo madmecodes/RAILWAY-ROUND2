@@ -52,6 +52,8 @@ SOCIALACCOUNT_PROVIDERS = {
             'client_id': config('GOOGLE_CLIENT_ID'),
             'secret': config('GOOGLE_CLIENT_SECRET'),
             'key': '',
+            'redirect_uris': ['http://django/accounts/google/login/callback/']
+
         }
     }
 }
@@ -94,12 +96,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "dvm_r2.wsgi.application"
 
-environment = config('DJANGO_ENV', 'local')
+environment = config('DJANGO_ENVIRONMENT', 'local')
+print(environment)
 if(environment=='local'):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": config("DB_NAME_LOCAL"),
+            "NAME": "new_dvm_round_2",
             "USER": config("DB_USER_LOCAL"),
             "PASSWORD": config("DB_PASSWORD_LOCAL"),
             "HOST": config("DB_HOST_LOCAL"),
@@ -181,4 +184,4 @@ AUTHENTICATION_BACKENDS = (
 )
 SOCIALACCOUNT_LOGIN_ON_GET=True # stackOverflow said not a secure approach, but i'm fed up of that intermediate confirmation
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8000", "http://localhost:1337"]
